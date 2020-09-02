@@ -1,0 +1,111 @@
+@import '../1-helpers/1-helpers';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    @include flex($dir:column);
+    background: $body-bg;
+    color: $base-color;
+    font-family: $font-stack-primary;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 300;
+    min-height: 100vh;
+}
+
+/*Headers styles*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-stack-secondary;
+    letter-spacing: 0.03rem;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: $font-lg;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: $font-med;
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: $font-larger;
+    line-height: 1.3;
+
+}
+
+/*Common Layout*/
+
+figure {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    object-fit: cover;
+}
+
+
+.section {
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+//Resusable classes
+
+.basic-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.light-font {
+    font-weight: 300;
+}
+
+.hide {
+    display: none;
+}
+
+
+.basic-input {
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.hide-parent-overflow {
+    overflow: hidden;
+    position: relative;
+}
+
+
+@include mq('large') {
+    body {
+        font-size: 1.1rem;
+    }
+
+    h1 {
+        font-size: $font-xl;
+    }
+
+    h2 {
+        font-size: $font-lg;
+    }
+
+    h3 {
+        font-size: $font-med;
+    }
+}

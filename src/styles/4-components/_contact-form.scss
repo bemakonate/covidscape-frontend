@@ -1,0 +1,87 @@
+$checkout-contact-brdr-color:transparent;
+$checkout-contact-bg-color: white;
+$checkout-contact-color: black;
+$checkout-contact-row-brdr: 5px;
+
+.contact-form__wrapper {
+    padding: 0 15px;
+    background: $checkout-contact-bg-color;
+    border-radius: 6px;
+    box-shadow: $d-box-shadow;
+}
+
+.checkout__contact-form {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.contact-label,
+.contact-input-wrapper {
+    height: 40px;
+}
+
+.contact-row.error {
+    background: rgba(red, .3);
+}
+
+
+/* contact row border radius */
+.contact-row td:first-child {
+    border-top-left-radius: $checkout-contact-row-brdr;
+    border-bottom-left-radius: $checkout-contact-row-brdr;
+    padding-left: 10px;
+
+}
+
+.contact-row td:last-child {
+    border-top-right-radius: $checkout-contact-row-brdr;
+    border-bottom-right-radius: $checkout-contact-row-brdr;
+    padding-right: 10px;
+}
+
+
+
+.contact-label {
+    border-right: 1px solid $checkout-contact-brdr-color;
+    padding: 8px 10px 8px 0;
+    font-weight: 400;
+    width: 40%;
+}
+
+.contact-input-wrapper {
+    width: 100%;
+}
+
+.contact-input {
+    @include square(100%);
+    padding: 0 10px;
+    outline: none;
+    border: none;
+    font-weight: 300;
+    background: transparent;
+
+    &::placeholder {
+        font-weight: 300;
+
+    }
+}
+
+
+
+@include mq('xs') {
+    .contact-label {
+        width: 45%;
+    }
+}
+
+@include mq('med') {
+    .contact-form__wrapper {
+        // max-width: 650px;
+        padding-top: 15px;
+        padding-bottom: 20px;
+    }
+
+    .contact-label {
+        width: 30%;
+    }
+}

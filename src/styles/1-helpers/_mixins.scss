@@ -1,0 +1,147 @@
+//Media Queries
+@mixin mq($break, $custom: false) {
+
+    //Using our custom breakpoint
+    @if $custom {
+        @media(min-width:$break) {
+            @content;
+        }
+    }
+
+    //If we are using breakpoint values
+    @else {
+        $value: map-get($breakpoints, $break);
+        $sm: map-get($breakpoints, 'sm');
+
+        @if $value <=$sm {
+            @media(max-width:$value) {
+                @content;
+            }
+        }
+
+        @else if $value>$sm {
+            @media(min-width:$value) {
+                @content;
+            }
+        }
+
+    }
+
+
+
+
+}
+
+@mixin flex($just:null,
+    $align:null,
+    $dir:null,
+    $wrap:null,
+    $center:null,
+    $disp:flex) {
+    display: $disp;
+    justify-content: $just;
+    align-items: $align;
+    flex-direction: $dir;
+    flex-wrap: $wrap;
+
+    @if $center==true {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+//Grid
+@mixin grid($flow:row,
+    $grid-cols:null,
+    $gap:null,
+    $grid-rows:null) {
+    display: grid;
+    grid-auto-flow: $flow;
+    grid-template-columns: $grid-cols;
+    grid-template-rows: $grid-rows;
+    grid-gap: $gap;
+}
+
+//Height and width
+@mixin square($dim, $brdr-radius: 0) {
+    height: $dim;
+    width: $dim;
+    border-radius: $brdr-radius;
+}
+
+@mixin rounded($dim, $rad : 50%) {
+    @include square($dim);
+    border-radius: $rad;
+}
+
+@mixin position($position:static,
+    $top: null,
+    $right: null,
+    $left: null,
+    $bottom: null,
+    $zIndex: null,
+    $p:null) {
+
+
+
+    position: $p;
+    z-index: $zIndex;
+    top: $top;
+    bottom: $bottom;
+    right: $right;
+    left: $left;
+
+    @if $p {
+        $position: $p;
+    }
+}
+
+
+@mixin brdr-radius($radius) {
+    border-radius: $radius;
+    --webkit-border-radius: $radius;
+    --moz-border-radius: $radius;
+}
+
+@mixin colors($bg:inherit, $color:black) {
+    background: $bg;
+    color: $color;
+}
+
+@mixin fonts($size:inherit, $family: null, $weight:inherit) {
+    @if $family {
+        font-family: $family;
+    }
+
+    font-size: $size;
+    font-weight: $weight;
+}
+
+
+//=============Gatsby Image=============
+//Gatsby image styles 
+@mixin gatsby-image-full-styles($brdr-rad:0, $autoHeight: false, $directParent:false) {
+
+    @if $autoHeight {
+        height: auto;
+    }
+
+    border-radius: $brdr-rad;
+}
+
+//Determine how to select the gatsby image because css classes won't won't work in css modules
+@mixin gatsby-image-full($brdr-rad:0, $autoHeight: false, $directParent:false) {
+    @include square(100%);
+
+    @if $directParent {
+        &>div {
+            @include gatsby-image-full-styles($brdr-rad, $autoHeight, $directParent)
+        }
+    }
+
+    @else {
+        & .gatsby-image-wrapper {
+            @include gatsby-image-full-styles($brdr-rad, $autoHeight, $directParent)
+        }
+    }
+}

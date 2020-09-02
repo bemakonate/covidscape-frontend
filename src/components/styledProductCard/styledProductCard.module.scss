@@ -1,0 +1,30 @@
+@import '../../styles/defaultImports.scss';
+
+//Style product card
+
+.ProductImg {
+    transition: 1s linear;
+    transform-origin: bottom left;
+}
+
+.Product:hover .ProductImg {
+    transform: scale(1.05);
+}
+
+
+.ProductImgContainer {
+    overflow: hidden;
+    border: 1px solid rgb(235, 235, 235);
+}
+
+@include mq($break: $productCard-md-break, $custom: true) {
+    .ProductOverlay {
+        background: rgba(white, .3);
+        transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .Product:hover .ProductOverlay {
+        background: rgba(white, .1);
+    }
+
+}

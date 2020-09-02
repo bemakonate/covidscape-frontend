@@ -1,0 +1,48 @@
+.clearfix {
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
+
+.section-padding {
+    padding: pix-to-rem(80px) 0;
+}
+
+.full-cover {
+    height: 100%;
+    width: 100%;
+}
+
+// .page-bumper {
+//     padding: 0 1rem;
+
+//     @include mq('med') {
+//         padding: 0;
+//         width: 80%;
+//         margin: 0 auto;
+//     }
+
+//     @include mq('large') {
+//         width: 70%;
+//         max-width: 1500px;
+//     }
+// }
+
+
+
+.basic-input {
+    border: none;
+    outline: none;
+}
+
+.remove-default-list-style {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.gatsby-image-full {
+    @include gatsby-image-full();
+}

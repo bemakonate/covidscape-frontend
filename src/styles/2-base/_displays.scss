@@ -1,0 +1,58 @@
+$displays:(flex, block, inline-block, grid, inline, none);
+$mqs: (mb:'sm',
+    med:'med',
+    lg:'large',
+);
+
+$displaysArr:();
+
+@each $display in $displays {
+    $defaultDisplay: ('display':$display, 'name':$display);
+    $displaysArr: append($displaysArr, $defaultDisplay);
+
+    @each $mqName,
+    $mqBreakpoint in $mqs {
+        $displayName: #{$mqName}-#{$display};
+        $mqDisplay: ('display':$display, 'media':$mqBreakpoint, 'name': $displayName);
+        $displaysArr: append($displaysArr, $mqDisplay);
+    }
+}
+
+
+@each $class in $displaysArr {
+    $display: map-get($class, 'display');
+    $mediaSize: map-get($class, 'media');
+    $name: map-get($class, 'name');
+    $mq-sm: map-get($breakpoints, 'sm');
+    $mq: map-get($breakpoints, $mediaSize);
+    $displayRoot: 'd';
+
+    @if not $mediaSize {
+        .#{$displayRoot}-#{$name} {
+            display: $display;
+        }
+    }
+
+    @if $mediaSize {
+
+        @if $mq==$mq-sm {
+
+            .#{$displayRoot}-#{$name} {
+                display: $display;
+
+                @include mq('med') {
+                    display: none;
+                }
+            }
+        }
+
+        @else {
+            .#{$displayRoot}-#{$name} {
+                @include mq($mediaSize) {
+                    display: $display;
+                }
+            }
+        }
+    }
+
+}

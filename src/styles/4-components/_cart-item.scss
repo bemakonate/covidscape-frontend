@@ -1,0 +1,88 @@
+//cart item
+
+
+.cart__item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 10px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.cart__item--expand {
+    grid-template-columns: 1fr 4fr;
+
+    .remove-item {
+        font-size: 30px;
+        top: -15px;
+        left: -15px;
+    }
+
+    .item__content {
+        @include flex($just:space-between);
+    }
+
+    .item-title {
+        font-size: 20px;
+    }
+
+    .item-price {
+        font-size: 20px;
+    }
+}
+
+.remove-item {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    z-index: 3;
+    font-size: 25px;
+}
+
+.cart__item-overlay {
+    @include position($p:absolute, $top:0, $left:0, $zIndex:2);
+    @include square(100%);
+    background: rgba(white, .4);
+}
+
+.item__og-price,
+.item__fixed-quantity {
+    margin: 0;
+    font-weight: 300;
+}
+
+.item__fixed-quantity {
+    font-size: 20px;
+
+}
+
+.item-title {
+    font-weight: 400;
+}
+
+.item-price {
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+@include mq('med') {
+
+    .item__content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item-price {
+        font-size: 20px;
+    }
+
+    .cart__item--expand {
+        grid-template-columns: 1fr 9fr;
+    }
+}
+
+@include mq('large') {
+    .cart__item--expand {
+        grid-template-columns: 1fr 5fr;
+    }
+}

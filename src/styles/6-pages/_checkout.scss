@@ -1,0 +1,139 @@
+.checkout-section {
+    margin-bottom: 60px;
+}
+
+.checkout__order-details {
+    background: rgb(70, 70, 70);
+    color: white;
+    padding: 20px 10px;
+    border-radius: 3px;
+    box-shadow: $d-box-shadow;
+}
+
+.checkout__order-img {
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.payment-option-wrapper {
+    background: white;
+    border-radius: 6px;
+    box-shadow: $d-box-shadow;
+    padding: 10px 20px;
+}
+
+.payment-options {
+    @include flex($wrap:wrap);
+
+}
+
+.payment-option {
+    @include flex($align:center);
+    margin-right: 20px;
+
+}
+
+.payment-radio {
+    margin-right: 10px;
+}
+
+.payment-icon {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.payment-radio-label {
+    display: inline-flex;
+}
+
+.checkout-totals {
+    background: rgb(224, 224, 224);
+    padding: 30px 0 60px;
+    margin: 50px 0;
+    border-radius: 6px;
+    box-shadow: $d-box-shadow;
+}
+
+.checkout__text-container {
+    padding: 0 1rem;
+}
+
+
+
+.checkout-subtotal-container {
+
+    .subtotal-container {
+        padding: 10px 0;
+    }
+
+    .subtotal-label,
+    .subtotal-price {
+        font-size: 20px;
+    }
+
+    .total-price {
+        font-size: 30px;
+
+        .dollar-sign {
+            font-size: 18px;
+        }
+    }
+}
+
+@include mq($break: '800px', $custom:true) {
+    .checkout__text-container {
+        padding: 0;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .checkout-section {
+        margin-bottom: 30px;
+    }
+
+    .checkout-totals {
+        position: sticky;
+        top: 90px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .checkout__wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 3%;
+    }
+
+
+    //Fix order of payment information
+    .payment-info {
+        @include flex($dir:column);
+    }
+
+    .contact-info-section {
+        order: 1;
+    }
+
+    .payment-option-section {
+        order: 2;
+    }
+
+    .order-details-section {
+        order: 3;
+    }
+}
+
+@include mq('large') {
+    .checkout__text-container {
+        width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+    }
+
+    .checkout__wrapper {
+        grid-gap: 8%;
+    }
+
+
+
+}

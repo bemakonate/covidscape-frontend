@@ -1,0 +1,77 @@
+.cart-sidebar {
+    @include position($p:fixed, $right:0, $top:0, $zIndex: 1000);
+    box-shadow: $d-box-shadow;
+    background: white;
+    padding-top: 100px;
+    height: 100vh;
+    width: 80%;
+    transform: translate(100vw);
+    transition: .4s linear;
+}
+
+.cart-sidebar__container {
+    padding: 0 50px;
+}
+
+.cart-sidebar__close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 28px;
+}
+
+.cart-sidebar .sidebar__line {
+    margin-bottom: 10px;
+}
+
+.cart-sidebar__cart-link {
+    @extend .btn;
+    @extend .btn-dark;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 5px;
+}
+
+@include mq('med') {
+    .cart-sidebar {
+        width: 55%;
+    }
+}
+
+@include mq('large') {
+    .cart-sidebar {
+        max-width: 435px;
+    }
+}
+
+//shared cart styles
+.subtotal-container {
+    @include flex($just:space-between, $align:center);
+    font-size: 18px;
+    padding: 20px 0;
+    -webkit-font-smoothing: antialiased;
+
+    .dollar-sign {
+        font-size: 14px;
+    }
+}
+
+
+.subtotal-label {
+    font-weight: 400;
+    margin: 0;
+}
+
+.subtotal-price {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0;
+}
+
+.line {
+    height: 5px;
+    width: 100%;
+    background: black;
+}

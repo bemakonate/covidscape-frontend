@@ -1,0 +1,78 @@
+.header-height {
+    height: 50vh;
+    transition: height 0.4s;
+}
+
+.categories-dropdown {
+    transition: height 0.4s;
+    height: 90vh;
+}
+
+.shop__jumbotron {
+    padding-top: 50px;
+    height: 100%;
+    background-color: rgba(white, 0.5);
+    transition: 0.4s;
+    overflow: hidden;
+}
+
+.shop__breadcrumb-list {
+    margin-bottom: 15px;
+}
+
+.shop__jumbotron-title {
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-weight: 700;
+}
+
+.shop__jumbotron-content {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.shop__jumbotron-categories-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-bottom: 10px;
+    font-size: 20px;
+    // border-bottom: 1px solid #eee;
+    /* padding: 10px 20px; */
+}
+
+.shop__jumbotron-categories-list {
+    @extend .remove-default-list-style;
+    padding: 10px 15px;
+    font-weight: 400;
+    background: rgba(white, 0.5);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.shop__jumbotron-categories-item {
+    display: block;
+    padding: 10px;
+
+    &:hover {
+        background: black;
+        color: white;
+    }
+}
+
+.shop__jumbotron-categories-btn__arrow {
+    padding-left: 10px;
+}
+
+.shop__jumbotron-categories-btn__text {
+    border-bottom: 1px dotted rgb(126, 126, 126);
+    padding-bottom: 3px;
+}
+
+
+
+@include mq("large") {
+    .shop__jumbotron-title {
+        font-size: $font-xxl;
+    }
+}

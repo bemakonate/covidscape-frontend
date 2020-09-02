@@ -1,0 +1,40 @@
+.categories__jumbotron {
+    height: 50vh;
+    background: rgb(240, 240, 240);
+    color: black;
+}
+
+.categories__jumbotron-container {
+    @include flex($center:true);
+    @include square(100%);
+    text-align: center;
+}
+
+.categories__jumbotron-title {
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.categories__jumbotron-dest {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.categories__jumbotron-content {
+    margin-top: 10%;
+}
+
+.categories-section {
+    padding-top: 3.75rem;
+    padding-bottom: 10rem;
+}
+
+@include mq('med') {
+    .categories__jumbotron {
+        height: 60vh;
+    }
+
+    .categories__jumbotron-dest {
+        font-size: 20px;
+    }
+}

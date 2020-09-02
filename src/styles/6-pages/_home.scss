@@ -1,0 +1,132 @@
+.home {
+    .home-jumbotron {
+        height: 60vh;
+        padding-top: 50px;
+        @include flex($align:center, $just:flex-start);
+        background-color: rgba(white, 0.7);
+        color: black;
+    }
+
+    .home-jumbotron__shop-link {
+        @include disappearHoverLink();
+    }
+
+    .business-msg {
+        text-align: center;
+    }
+
+    .business-msg__container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .business-msg__title {
+        font-weight: 600;
+        margin-bottom: 24px;
+    }
+
+
+    //Contact Boxs
+    .contact-box {
+        height: 360px;
+        position: relative;
+    }
+
+    .contact-box-container {
+        @include square(100%);
+    }
+
+    .contact-box-overlay {
+        @include position($p: absolute, $top:0, $left:0, $zIndex: -1);
+        @include square(100%);
+    }
+
+    .contact-box-img {
+        @include position($p:relative, $zIndex: -2);
+        @include gatsby-image-full($directParent:false);
+        @include square(100%);
+    }
+
+    .contact-box-content {
+        position: absolute;
+        top: 17%;
+        left: 15%;
+        max-height: 83%;
+        max-width: 85%;
+
+    }
+
+
+    .contact-box-link {
+        @include disappearHoverLink();
+    }
+
+    //Store location
+    .store-location {
+        .contact-box-overlay {
+            background: rgba(white, .5);
+        }
+
+        .contact-box-content {
+            color: black;
+        }
+    }
+
+    .contact-box-location-list {
+        @extend .remove-default-list-style;
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .contact-box-location-item {
+        line-height: 1.5;
+    }
+
+    //Store media
+    .store-media {
+        .contact-box-overlay {
+            background: rgba(black, .5);
+        }
+
+        .contact-box-content {
+            color: white;
+        }
+
+        .contact-box-title {
+            max-width: 200px;
+        }
+
+    }
+
+
+    //Default breakpoints
+    @include mq('med') {
+        .home-jumbotron {
+            height: 80vh;
+        }
+    }
+
+    @include mq('large') {
+        .home-jumbotron {
+            height: 100vh;
+        }
+
+        //contact boxs
+        .contact-boxs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .contact-box-title {
+            font-size: $font-med;
+        }
+
+        .store-media .contact-box-title {
+            max-width: 300px;
+        }
+
+        .contact-box {
+            height: 470px;
+        }
+    }
+}

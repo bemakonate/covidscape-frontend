@@ -1,0 +1,13 @@
+@function pix-to-rem($pix, $base:16px) {
+    @return($pix/$base * 1rem);
+}
+
+@function pow($base, $exponent) {
+    $result: 1;
+
+    @for $_ from 1 through $exponent {
+        $result: $result * $base;
+    }
+
+    @return $result;
+}

@@ -1,0 +1,159 @@
+@import '../../styles/defaultImports.scss';
+
+$product-btn-brdr: 1px solid rgb(231, 231, 231);
+
+.Product {
+    width: 100%;
+}
+
+.ProductImg {
+    position: relative;
+    z-index: -2;
+    @include gatsby-image-full($directParent: true);
+    @include square(100%);
+}
+
+.ProductBtns {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+
+
+    & .ProductBtn:last-child {
+        border-bottom: $product-btn-brdr;
+    }
+}
+
+.ProductBtn {
+    @include flex($center:true);
+    flex: 1 1 0;
+    background: white;
+    border: $product-btn-brdr;
+    border-bottom: none;
+    outline: none;
+    font-size: 20px;
+    padding: 8px 0;
+    transition: 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &:hover {
+        background: black;
+        color: white;
+    }
+}
+
+
+.CardDetails {
+    margin-top: 10px;
+}
+
+//Category Details
+.CategoryItems {
+    font-size: 16px;
+    margin: 2px 0;
+}
+
+.CategoryTitle {
+    font-weight: 600;
+    margin: 2px 0;
+}
+
+//Product Details
+.ProductTitle,
+.ProductPrice {
+    font-size: 18px;
+    margin: 2px 0;
+}
+
+
+@include mq($break: $productCard-md-break, $custom: true) {
+    .Product {
+        position: relative;
+    }
+
+
+    .ProductOverlay {
+        @include position($p:absolute, $top:0, $left:0, $zIndex: -1);
+        @include square(100%);
+    }
+
+    .CardDetails {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        width: 108%;
+
+    }
+
+    //Product
+    .ProductDetails {
+        background: rgba(black, .6);
+        color: white;
+        padding: 0 6px;
+    }
+
+    .ProductDetails {
+        @include flex($just:space-between, $align:center);
+        padding-right: 16px;
+    }
+
+    .ProductTitle {
+        font-size: $font-larger;
+        font-weight: 600;
+        max-width: 130px;
+    }
+
+    //Category
+    .CategoryTitle {
+        font-size: $font-med;
+        display: inline-block;
+    }
+
+    .CategoryTitleText {
+        position: relative;
+        @include animatedWidthLink();
+    }
+
+    @include expandAnimatedWidthLink('.Product:hover .CategoryTitleText');
+
+
+
+}
+
+@include mq('large') {
+
+
+    .ProductBtns {
+        top: 10px;
+        left: 3%;
+        transform: translate(-100px);
+        transition: .3s;
+    }
+
+    .Product:hover .ProductBtns {
+        transform: translate(0);
+    }
+
+    .ProductBtn,
+    .ProductBtns .ProductBtn:last-child {
+        border-color: black;
+        border-width: 2px;
+    }
+
+
+    .ProductBtn {
+        background: rgba(white, .6);
+        color: black;
+        font-weight: 500;
+
+        &:hover {
+            background: black;
+        }
+    }
+
+    .ProductDetails {
+        bottom: 0;
+        width: 100%;
+    }
+}

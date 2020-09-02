@@ -1,0 +1,59 @@
+.nav-sidebar {
+    width: 65%;
+    height: 100vh;
+    background: white;
+    box-shadow: $d-box-shadow;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    padding-top: 100px;
+    transform: translate(-130vh);
+    transition: .4s ease-in-out;
+}
+
+.nav-sidebar__line {
+    margin: 40px 0;
+}
+
+.nav-sidebar__container {
+    padding: 0 50px;
+}
+
+.nav-sidebar__close {
+    position: absolute;
+    top: 30px;
+    font-size: 28px;
+}
+
+.nav-sidebar__contact {
+    font-size: 18px;
+}
+
+.nav-sidebar__contact__text {
+    margin: 2px 0;
+}
+
+
+.nav-sidebar__links {
+    @extend .remove-default-list-style;
+}
+
+.nav-sidebar__link {
+    display: block;
+    font-size: 26px;
+    font-weight: 400;
+    padding: 10px 0;
+}
+
+@include mq('xs') {
+    .nav-sidebar {
+        width: 80%;
+    }
+}
+
+@include mq('med') {
+    .nav-sidebar {
+        display: none;
+    }
+}

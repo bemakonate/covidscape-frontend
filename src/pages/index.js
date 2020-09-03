@@ -4,7 +4,7 @@ import GatsbyImage from 'gatsby-image';
 
 import BackgroundImage from 'gatsby-background-image';
 import { graphql, useStaticQuery } from "gatsby";
-import StyledProductCard from '../components/styledProductCard/styledProductCard';
+import StyledProductCard from '../components/reusable/styledProductCard';
 
 export const query = graphql`
   {

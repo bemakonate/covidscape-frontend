@@ -1,4 +1,4 @@
-import { enforceFormat, formatToPhone } from '../../constants/helpers';
+import { enforceFormat, formatToPhone } from './helpers';
 const formConfig = [
     {
         id: 'firstName',

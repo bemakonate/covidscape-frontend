@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import classes from './itemQuantity.module.scss';
 
 const ItemQuantity = (props) => {
     const [itemQuantity, setItemQuantity] = useState(props.num);
@@ -20,14 +21,14 @@ const ItemQuantity = (props) => {
     }, [itemQuantity]);
 
 
-    const subtractQuantity = () => setItemQuantity(itemQuantity - 1)
+    const subtractQuantity = () => setItemQuantity(itemQuantity - 1);
     const addQuantity = () => setItemQuantity(itemQuantity + 1);
 
     return (
-        <div className={`item-quantity ${props.styleClass ? props.styleClass : ''}  ${props.expand ? 'item-quantity--expand' : ''}`}>
-            <button className="item-quantity__change" onClick={subtractQuantity}>-</button>
-            <input type="text" name="quantity" value={itemQuantity} min="1" className="item-quantity__num" pattern="[0-9]*" disabled />
-            <button className="item-quantity__change" onClick={addQuantity}>+</button>
+        <div className={`${classes.ItemQuantity} ${props.styleClass ? props.styleClass : ''}  ${props.expand ? classes.Expand : ''}`}>
+            <button className={classes.ChangeBtn} onClick={subtractQuantity}>-</button>
+            <input type="text" name="quantity" value={itemQuantity} min="1" className={classes.ItemNum} pattern="[0-9]*" disabled />
+            <button className={classes.ChangeBtn} onClick={addQuantity}>+</button>
         </div>
     )
 }

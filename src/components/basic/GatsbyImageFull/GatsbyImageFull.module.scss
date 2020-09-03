@@ -1,0 +1,5 @@
+@import '../../../styles/defaultImports.scss';
+
+.GatsbyImageFull {
+    @include gatsby-image-full();
+}

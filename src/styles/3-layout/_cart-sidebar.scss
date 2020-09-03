@@ -45,33 +45,3 @@
         max-width: 435px;
     }
 }
-
-//shared cart styles
-.subtotal-container {
-    @include flex($just:space-between, $align:center);
-    font-size: 18px;
-    padding: 20px 0;
-    -webkit-font-smoothing: antialiased;
-
-    .dollar-sign {
-        font-size: 14px;
-    }
-}
-
-
-.subtotal-label {
-    font-weight: 400;
-    margin: 0;
-}
-
-.subtotal-price {
-    font-weight: 600;
-    font-size: 20px;
-    margin: 0;
-}
-
-.line {
-    height: 5px;
-    width: 100%;
-    background: black;
-}

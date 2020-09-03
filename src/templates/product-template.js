@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions';
 import { graphql } from "gatsby";
 import GatsbyImage from 'gatsby-image';
-import AspectRatio from '../components/aspectRatio/aspectRatio';
+import AspectRatio from '../components/basic/aspectRatio/aspectRatio';
 import { FiCheckCircle } from 'react-icons/fi';
-import ItemQuantity from '../components/itemQuantity/itemQuantity';
+import ItemQuantity from '../components/reusable/itemQuantity';
 
 export const query = graphql`
 query GetProduct($slug: String){

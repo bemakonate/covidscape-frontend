@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { Link } from 'gatsby';
-import CartItem from '../../cartItem/cartItem';
+import CartItem from '../../reusable/cartItem';
 import { formatNumber } from '../../../constants/helpers';
 
 

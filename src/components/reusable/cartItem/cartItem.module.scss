@@ -1,7 +1,6 @@
-//cart item
+@import '../../../styles/defaultImports.scss';
 
-
-.cart__item {
+.CartItem {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-gap: 10px;
@@ -9,29 +8,18 @@
     position: relative;
 }
 
-.cart__item--expand {
-    grid-template-columns: 1fr 4fr;
 
-    .remove-item {
-        font-size: 30px;
-        top: -15px;
-        left: -15px;
-    }
-
-    .item__content {
-        @include flex($just:space-between);
-    }
-
-    .item-title {
-        font-size: 20px;
-    }
-
-    .item-price {
-        font-size: 20px;
-    }
+.Title {
+    font-weight: 400;
 }
 
-.remove-item {
+.Price {
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+
+.RemoveBtn {
     position: absolute;
     top: -12px;
     left: -12px;
@@ -39,30 +27,44 @@
     font-size: 25px;
 }
 
-.cart__item-overlay {
+.ItemOverlay {
     @include position($p:absolute, $top:0, $left:0, $zIndex:2);
     @include square(100%);
     background: rgba(white, .4);
 }
 
-.item__og-price,
-.item__fixed-quantity {
+.FixedPrice,
+.FixedQuantity {
     margin: 0;
     font-weight: 300;
 }
 
-.item__fixed-quantity {
+.FixedQuantity {
     font-size: 20px;
-
 }
 
-.item-title {
-    font-weight: 400;
-}
+.Expand {
+    grid-template-columns: 1fr 4fr;
 
-.item-price {
-    font-weight: 500;
-    margin-top: 4px;
+    .RemoveBtn {
+        font-size: 30px;
+        top: -15px;
+        left: -15px;
+    }
+
+    .Title {
+        font-size: 20px;
+    }
+
+    .Price {
+        font-size: 20px;
+    }
+
+    .ItemContent {
+        @include flex($just:space-between);
+    }
+
+
 }
 
 @include mq('med') {
@@ -72,17 +74,17 @@
         justify-content: space-between;
     }
 
-    .item-price {
+    .Price {
         font-size: 20px;
     }
 
-    .cart__item--expand {
+    .Expand {
         grid-template-columns: 1fr 9fr;
     }
 }
 
 @include mq('large') {
-    .cart__item--expand {
+    .Expand {
         grid-template-columns: 1fr 5fr;
     }
 }

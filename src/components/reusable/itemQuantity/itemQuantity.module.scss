@@ -1,9 +1,10 @@
-//item quantity class
-.item-quantity {
+@import '../../../styles/defaultImports.scss';
+
+.ItemQuantity {
     @include flex($align:center);
 }
 
-.item-quantity__change {
+.ChangeBtn {
     @include rounded(20px);
     @extend .basic-input;
     @include flex($center:true);
@@ -11,7 +12,7 @@
     font-weight: 300;
 }
 
-.item-quantity__num {
+.ItemNum {
     @extend .basic-input;
     background: transparent;
     width: 40px;
@@ -21,16 +22,16 @@
     font-weight: 400;
 }
 
-.item-quantity--expand {
+.Expand {
     justify-content: center;
     margin-bottom: 20px;
 
-    .item-quantity__change {
+    .ChangeBtn {
         @include rounded(32px);
         font-size: 25px;
     }
 
-    .item-quantity__num {
+    .ItemNum {
         width: 50px;
         font-size: 30px;
     }

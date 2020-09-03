@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { updatedObj } from '../constants/updatedObj';
+import { updatedObj } from '../constants/helpers';
 
 
 const intialState = {

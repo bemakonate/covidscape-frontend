@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { getTotalItemsAndPrice } from '../constants/custom-helpers';
+import { getTotalItemsAndPrice } from '../constants/helpers/custom-helpers';
 
 
 export const openCartSidebar = () => {

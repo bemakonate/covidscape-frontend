@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout/layout';
-import CartItem from '../components/cartItem/cartItem';
+import CartItem from '../components/reusable/cartItem';
 import { Link } from 'gatsby';
 import { connect } from 'react-redux';
 import { formatNumber } from '../constants/helpers';

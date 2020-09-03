@@ -4,7 +4,7 @@ import * as actions from '../../store/actions';
 import Navbar from './navigation/navbar';
 import Sidebar from './navigation/sidebar';
 import Footer from './footer/footer';
-import CartSidebar from './cart/cart-sidebar';
+import CartSidebar from './checkout/cart-sidebar';
 import '../../styles/main.scss';
 
 const Layout = ({ children, addPadding = false, ...props }) => {

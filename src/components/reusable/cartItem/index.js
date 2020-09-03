@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { Link } from 'gatsby';
-import AspectRatio from '../aspectRatio/aspectRatio';
-import GatsbyImageFull from '../GatsbyImageFull/GatsbyImageFull';
-import ItemQuantity from '../itemQuantity/itemQuantity';
-import { formatNumber } from '../../constants/helpers';
+import AspectRatio from '../../basic/aspectRatio/aspectRatio';
+import GatsbyImageFull from '../../basic/GatsbyImageFull/GatsbyImageFull';
+import ItemQuantity from '../itemQuantity';
+import { formatNumber } from '../../../constants/helpers';
+import classes from './cartItem.module.scss';
 
 const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => {
     //Update the component state when the item quantity was changed
@@ -20,29 +21,30 @@ const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => 
 
 
     return (
-        <div className={`cart__item ${props.expand ? 'cart__item--expand' : ''}`}>
-            {!props.fixed ? <div className="remove-item" onClick={() => props.removeItem(id)}><IoIosCloseCircleOutline /></div> : null}
+        <div className={`${classes.CartItem} ${props.expand ? classes.Expand : ''}`}>
+
+            {!props.fixed ? <div className={classes.RemoveBtn} onClick={() => props.removeItem(id)}><IoIosCloseCircleOutline /></div> : null}
             <Link to={slug}>
                 <AspectRatio height="100%" styleClass={props.imageWrapperClass ? props.imageWrapperClass : ''}>
                     <GatsbyImageFull image={image} />
-                    <div className="cart__item-overlay"></div>
+                    <div className={classes.ItemOverlay}></div>
                 </AspectRatio>
             </Link>
 
-            <div className="item__content">
+            <div className={classes.ItemContent}>
                 <div>
-                    <Link to="#" className="item-title">{title || 'Product Title'}</Link>
+                    <Link to="#" className={classes.Title}>{title || 'Product Title'}</Link>
                     {!props.fixed ? <ItemQuantity num={quantity} getQuantity={setItemQuantity} /> : null}
                     {props.fixed ? (
                         <React.Fragment>
-                            <p className="item__og-price">Price: ${price}</p>
-                            <p className="item__fixed-quantity">Qty: {quantity}</p>
+                            <p className={classes.FixedPrice}>Price: ${price}</p>
+                            <p className={classes.FixedQuantity}>Qty: {quantity}</p>
                         </React.Fragment>
                     ) : null}
                 </div>
 
 
-                <p className="item-price">${formatNumber(price * quantity)}</p>
+                <p className={classes.Price}>${formatNumber(price * quantity)}</p>
             </div>
         </div>
     )

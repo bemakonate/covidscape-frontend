@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout/layout';
-import StyledProductCard from '../components/styledProductCard/styledProductCard';
+import StyledProductCard from '../components/reusable/styledProductCard';
 import { graphql, useStaticQuery } from "gatsby";
-import categories from '../constants/categories';
 import BackgroundImage from 'gatsby-background-image';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 

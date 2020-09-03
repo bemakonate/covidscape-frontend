@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout/layout';
-import StyledProductCard from '../components/styledProductCard/styledProductCard';
+import StyledProductCard from '../components/reusable/styledProductCard';
 import { graphql } from 'gatsby';
 
 export const query = graphql`

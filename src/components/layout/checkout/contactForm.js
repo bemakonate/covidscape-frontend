@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import formDefaultConfig from './contactFormConfig';
+import formDefaultConfig from '../../../constants/contactFormConfig';
 import {
     createFormConfig,
     createFormValues,
@@ -8,7 +8,7 @@ import {
     updateFormValues,
     createInput,
     updateIsWholeFormValid
-} from '../../constants/form-helpers'
+} from '../../../constants/helpers/form-helpers'
 
 
 

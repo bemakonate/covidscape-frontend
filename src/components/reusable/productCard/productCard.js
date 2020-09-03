@@ -1,8 +1,7 @@
 import React from 'react'
 import GatsbyImage from 'gatsby-image';
-import AspectRatio from '../aspectRatio/aspectRatio';
+import AspectRatio from '../../basic/aspectRatio/aspectRatio';
 import classes from './productCard.module.scss';
-import { AiOutlineEye } from 'react-icons/ai';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 import { FiInfo } from 'react-icons/fi';
 import { BsHeart } from 'react-icons/bs';

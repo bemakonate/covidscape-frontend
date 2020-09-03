@@ -12,7 +12,7 @@ import {
 
 
 
-const Contact = () => {
+const Contact = (props) => {
 
     const [form, setForm] = useState(null); //form values, represents values
     const [formConfig, setFormConfig] = useState(null); //form elements, store actual values of the form
@@ -43,6 +43,10 @@ const Contact = () => {
         if (formConfig) {
             const newFormConfig = updateFormConfigValidity(formConfig);
             setFormConfig(newFormConfig);
+        }
+
+        if (props.getFormData) {
+            props.getFormData(form);
         }
 
     }, [form])

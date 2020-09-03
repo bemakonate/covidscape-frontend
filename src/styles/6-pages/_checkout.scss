@@ -19,7 +19,14 @@
     background: white;
     border-radius: 6px;
     box-shadow: $d-box-shadow;
-    padding: 10px 20px;
+    padding: 30px 20px;
+}
+
+.card-element {
+    padding: 10px;
+    border-radius: 6px;
+    background: rgb(244, 249, 255);
+    margin: 20px 0;
 }
 
 .payment-options {
@@ -77,6 +84,13 @@
         .dollar-sign {
             font-size: 18px;
         }
+    }
+}
+
+@include mq('xs') {
+    .payment-option-wrapper {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }
 

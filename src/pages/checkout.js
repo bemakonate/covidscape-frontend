@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/layout';
 import ContactForm from '../components/checkout/contactForm';
 import { connect } from 'react-redux';
 import CartItem from '../components/cartItem/cartItem';
 import { FaCreditCard, FaApple } from 'react-icons/fa';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { formatNumber } from '../constants/helpers';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
@@ -12,8 +12,28 @@ import axios from 'axios';
 
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
 
+//Stop the user from the paying twice. Use a state
 
-const CheckoutForm = () => {
+const CARD_ELEMENT_OPTIONS = {
+    style: {
+        base: {
+            color: '#32325d',
+            fontFamily: '"Josefin Sans", sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#787878'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    }
+};
+
+
+const CheckoutForm = ({ success, billingDetails }) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -21,21 +41,22 @@ const CheckoutForm = () => {
         e.preventDefault();
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card: elements.getElement(CardElement)
+            card: elements.getElement(CardElement),
         })
 
         if (!error) {
-            console.log(paymentMethod);
             const { id } = paymentMethod;
 
             try {
-                const response = await axios.post('/api/charge', {
+                const response = await axios.post(`http://localhost:1337/orders/payment`, {
                     id,
                     amount: 1099
                 });
 
                 const data = response.data;
+                // success();
             } catch (err) {
+                //Send flash message 
                 console.log(err);
             }
         }
@@ -43,17 +64,32 @@ const CheckoutForm = () => {
 
 
     return <form onSubmit={handleSubmit}>
-        <CardElement />
+        <div className="card-element">
+            <CardElement options={CARD_ELEMENT_OPTIONS} />
+        </div>
+        <p>Error goes here</p>
+
         <button type="submit" disabled={!stripe}>Submit</button>
     </form>
 }
 
 
-
 const Checkout = (props) => {
     const [payOption, setPayOption] = useState('card');
-    const payChangeHandler = (value) => setPayOption(value);
     const { cartItems, totalPrice } = props;
+
+    const [paymentPassed, setPaymentPassed] = useState(false);
+    const [billingDetails, setBillingDetails] = useState(null);
+
+
+    useEffect(() => {
+        if (paymentPassed) {
+            navigate('/');
+        }
+    }, [paymentPassed]);
+
+    const updateBillingDetails = (formData) => setBillingDetails(formData);
+    const payChangeHandler = (value) => setPayOption(value);
 
 
 
@@ -68,7 +104,7 @@ const Checkout = (props) => {
                         <section className="contact-info-section checkout-section">
                             <h3>Contact Information</h3>
                             <div className="contact-form__wrapper">
-                                <ContactForm />
+                                <ContactForm getFormData={updateBillingDetails} />
                             </div>
                         </section>
 
@@ -124,7 +160,9 @@ const Checkout = (props) => {
                                 </div>
 
                                 {/* ================Stripe elment here================= */}
-                                <Elements stripe={stripePromise}><CheckoutForm /></Elements>
+                                <Elements stripe={stripePromise}>
+                                    <CheckoutForm success={() => setPaymentPassed(true)} billingDetails={billingDetails} cartItems={cartItems} />
+                                </Elements>
                                 {/* ================Stripe elment here================= */}
                             </article>
                         </section>

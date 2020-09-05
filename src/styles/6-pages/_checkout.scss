@@ -2,6 +2,10 @@
     margin-bottom: 60px;
 }
 
+.checkout__text-container {
+    padding: 0 1rem;
+}
+
 .checkout__order-details {
     background: rgb(70, 70, 70);
     color: white;
@@ -53,39 +57,57 @@
     display: inline-flex;
 }
 
-.checkout-totals {
-    background: rgb(224, 224, 224);
+.summary {
+    // background: rgb(224, 224, 224);
+    background: none;
     padding: 30px 0 60px;
     margin: 50px 0;
     border-radius: 6px;
-    box-shadow: $d-box-shadow;
-}
-
-.checkout__text-container {
-    padding: 0 1rem;
+    // box-shadow: $d-box-shadow;
 }
 
 
-
-.checkout-subtotal-container {
-
-    .subtotal-container {
-        padding: 10px 0;
-    }
-
-    .subtotal-label,
-    .subtotal-price {
-        font-size: 20px;
-    }
-
-    .total-price {
-        font-size: 30px;
-
-        .dollar-sign {
-            font-size: 18px;
-        }
-    }
+.buy-btn {
+    @extend .btn;
+    @extend .btn-dark;
+    margin-top: 5px;
+    font-size: 18px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 400;
+    text-align: center;
 }
+
+.buy-btn:disabled {
+    background: rgba(black, .3);
+}
+
+.purchase-warning {
+    color: red;
+    display: block;
+    text-align: center;
+}
+
+.summary-row {
+    @include flex($just:space-between);
+    padding: 10px 0;
+}
+
+.summary-row-label,
+.summary-row-detail {
+    font-size: 20px;
+    margin: 0;
+}
+
+.summary-total {
+    @include flex($just:space-between, $align:center);
+}
+
+.summary-total-price {
+    font-size: 30px;
+}
+
+
 
 @include mq('xs') {
     .payment-option-wrapper {
@@ -105,7 +127,7 @@
         margin-bottom: 30px;
     }
 
-    .checkout-totals {
+    .summary {
         position: sticky;
         top: 90px;
         margin-top: 0;

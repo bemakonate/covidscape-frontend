@@ -1,5 +1,6 @@
 import React from 'react'
 import NavLinks from './navLinks';
+import { Link } from 'gatsby';
 
 //Icons
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
@@ -18,7 +19,7 @@ const navigation = (props) => {
                     styleClass="nav-links"
                     navLinkClass="nav-link" />
             </div>
-            <div className="nav__brand"><RiSurgicalMaskLine /></div>
+            <Link to="/" className="nav__brand"><RiSurgicalMaskLine /></Link>
 
             <div className="nav__user-section">
                 <GrSearch className="nav__search-icon" />

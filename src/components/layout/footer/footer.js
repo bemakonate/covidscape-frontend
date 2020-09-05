@@ -2,7 +2,7 @@ import React from 'react';
 import { FaFacebookF, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { CgInstagram } from 'react-icons/cg';
 import footerWidgets from '../../../constants/footer-links';
-import PaymentCards from './payment-icons';
+import PaymentCards from '../../../constants/payment-icons';
 
 const footer = () => {
 

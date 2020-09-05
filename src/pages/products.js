@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout/layout';
 import StyledProductCard from '../components/reusable/styledProductCard';
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, useStaticQuery, Link } from "gatsby";
 import BackgroundImage from 'gatsby-background-image';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
-
-
-
+import { BsArrowLeft } from 'react-icons/bs';
+import { CgMore } from 'react-icons/cg';
 
 
 export const query = graphql`
@@ -61,6 +60,7 @@ const AllProducts = ({ data }) => {
   const [categoriesDropdown, setCategoriesDropdown] = useState(false);
   const allProducts = data.allStrapiProducts.nodes;
   const categories = data.allStrapiCategories.categories;
+  const toggleCategoriesDropdown = () => setCategoriesDropdown(!categoriesDropdown);
 
   const Products = () => {
     return (
@@ -72,12 +72,13 @@ const AllProducts = ({ data }) => {
             link={`/products/${product.slug}`}
             title={product.title}
             price={product.price}
-            image={product.image.childImageSharp.fluid} />
+            image={product.image.childImageSharp.fluid}
+            product={product} />
         )}
       </div>
     )
   }
-  const toggleCategoriesDropdown = () => setCategoriesDropdown(!categoriesDropdown);
+
 
   return (
     <Layout>
@@ -89,17 +90,26 @@ const AllProducts = ({ data }) => {
           className='shop__jumbotron'>
           <div className="shop__jumbotron-content">
             <div className="container">
-              <p className="shop__breadcrumb-list">Home / Categories / Shop</p>
-              <h1 className="shop__jumbotron-title">Shop</h1>
-              <button onClick={toggleCategoriesDropdown} className="shop__jumbotron-categories-btn">
-                <span className="shop__jumbotron-categories-btn__text">Categories</span>
-                <span className="shop__jumbotron-categories-btn__arrow">
-                  {categoriesDropdown ? <IoIosArrowDown /> : <IoIosArrowUp />}
-                </span>
-              </button>
+              <div className="jumbo__sub-content">
+
+                <Link to="/" className="jumbo__back-arrow shop-arrow"><BsArrowLeft /></Link>
+                <p className="shop__breadcrumb-list">Home / Categories / Shop</p>
+                <h1 className="shop__jumbotron-title">Shop</h1>
+                <button onClick={toggleCategoriesDropdown} className="shop__jumbotron-categories-btn">
+                  <span className="shop__jumbotron-categories-btn__text">Categories</span>
+                  <span className="shop__jumbotron-categories-btn__arrow">
+                    {categoriesDropdown ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                  </span>
+                </button>
+              </div>
               {categoriesDropdown && <ul className="shop__jumbotron-categories-list">
                 {categories.map(category =>
-                  <li><a className="shop__jumbotron-categories-item" href="#">{category.name}</a></li>)}
+                  <li><Link className="shop__jumbotron-categories-item" to={`/categories/${category.slug}`}>{category.name}</Link></li>)}
+                <li>
+                  <Link className="shop__jumbotron-categories-item more-categories-item" to="/categories">
+                    More <CgMore className="more-categories-icon" />
+                  </Link>
+                </li>
               </ul>}
             </div>
 

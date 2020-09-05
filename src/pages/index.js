@@ -3,7 +3,7 @@ import Layout from '../components/layout/layout';
 import GatsbyImage from 'gatsby-image';
 
 import BackgroundImage from 'gatsby-background-image';
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, useStaticQuery, Link } from "gatsby";
 import StyledProductCard from '../components/reusable/styledProductCard';
 
 export const query = graphql`
@@ -84,7 +84,7 @@ const Index = ({ data }) => {
 
         <article className="container">
           <h2>Staying safe,<br />doesn't mean staying dry </h2>
-          <a className="home-jumbotron__shop-link" href="#">Shop Now</a>
+          <Link className="home-jumbotron__shop-link" to="/products">Shop Now</Link>
         </article>
       </BackgroundImage >
     )
@@ -96,7 +96,7 @@ const Index = ({ data }) => {
         <div className="business-msg__container container">
           <h2 className="business-msg__title">Show your style,<br /> and protect others</h2>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo dicta velit, beatae laborum voluptatem, atque aperiam sequi repellat fugit sunt iusto mollitia nobis voluptas! Libero minima dolorum optio nostrum suscipit!</p>
-          <button className="btn btn-lg btn-dark">View all our products</button>
+          <Link className="btn btn-lg btn-dark" to="/products">View all our products</Link>
         </div>
       </section>
     )
@@ -136,6 +136,7 @@ const Index = ({ data }) => {
                 link={`/products/${product.slug}`}
                 title={product.title}
                 price={product.price}
+                product={product}
                 image={product.image.childImageSharp.fluid} />
             })}
           </div>

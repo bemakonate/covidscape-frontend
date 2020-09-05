@@ -1,5 +1,5 @@
 .nav {
-    @include position($p:fixed, $zIndex:1000, $top:0, $left:0);
+    @include position($p:fixed, $zIndex:50, $top:0, $left:0);
     box-shadow: $d-box-shadow;
     width: 100%;
     background: white;
@@ -20,6 +20,7 @@
 .nav__brand {
     font-size: 35px;
     @include flex($center:center);
+    padding: 0 30px;
 }
 
 .nav__search-icon {

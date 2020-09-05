@@ -15,6 +15,12 @@ const Checkout = (props) => {
     const [billingDetails, setBillingDetails] = useState(null);
 
     const setPaymentPassed = () => setPaymentPassed(true);
+    const updateBillingDetails = (formData) => setBillingDetails(formData);
+
+    if (!cartItems.length) {
+        navigate('/');
+    }
+
 
     useEffect(() => {
         if (hasPaymentPassed) {
@@ -23,7 +29,7 @@ const Checkout = (props) => {
     }, [hasPaymentPassed]);
 
 
-    const updateBillingDetails = (formData) => setBillingDetails(formData);
+
 
 
     return (
@@ -32,6 +38,10 @@ const Checkout = (props) => {
 
                 <main className="checkout__wrapper">
                     <div className="payment-info">
+                        <section className="order-details-section checkout-section">
+                            <h3>Order Details</h3>
+                            <OrderDetails cartItems={cartItems} />
+                        </section>
 
                         <section className="contact-info-section checkout-section">
                             <h3>Contact Information</h3>
@@ -40,15 +50,12 @@ const Checkout = (props) => {
                             </div>
                         </section>
 
-                        <section className="order-details-section checkout-section">
-                            <h3>Order Details</h3>
-                            <OrderDetails cartItems={cartItems} />
-                        </section>
+
 
 
                         <section className="payment-option-section checkout-section">
                             <h3>Payment Option</h3>
-                            <OnlinePayment setPaymentPassed={setPaymentPassed} />
+                            <OnlinePayment setPaymentPassed={setPaymentPassed} cartItems={cartItems} totalPrice={totalPrice} />
                         </section>
                     </div>
 

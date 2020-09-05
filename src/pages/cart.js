@@ -5,6 +5,7 @@ import { Link } from 'gatsby';
 import { connect } from 'react-redux';
 import { formatNumber } from '../constants/helpers';
 import * as actions from '../store/actions';
+import Dollar from '../components/reusable/dollar';
 
 
 const Cart = (props) => {
@@ -34,7 +35,7 @@ const Cart = (props) => {
                     <div className="cart__text-container cart-subtotal-container">
                         <div className="cart__subtotal">
                             <p className="cart__subtotal-label">Subtotal:</p>
-                            <p className="cart__subtotal-price"><span className="dollar-sign">$</span>{formatNumber(totalPrice)}</p>
+                            <p className="cart__subtotal-price"><Dollar num={totalPrice} /></p>
                         </div>
                         <Link className="checkout-btn" to="/checkout">Checkout</Link>
                     </div>
@@ -43,6 +44,12 @@ const Cart = (props) => {
             </section>
 
 
+        )
+    } else {
+        cartJSX = (
+            <React.Fragment>
+                No Items in the cart
+            </React.Fragment>
         )
     }
     return (

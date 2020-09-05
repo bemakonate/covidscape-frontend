@@ -6,10 +6,12 @@ import GatsbyImageFull from '../../basic/GatsbyImageFull/GatsbyImageFull';
 import ItemQuantity from '../itemQuantity';
 import { formatNumber } from '../../../constants/helpers';
 import classes from './cartItem.module.scss';
+import Dollar from '../dollar';
 
 const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => {
     //Update the component state when the item quantity was changed
     const [itemQuantity, setItemQuantity] = useState(quantity);
+    const cartItemPrice = price * quantity;
 
     //If the quantity of the item change update the global state
     useEffect(() => {
@@ -37,14 +39,14 @@ const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => 
                     {!props.fixed ? <ItemQuantity num={quantity} getQuantity={setItemQuantity} /> : null}
                     {props.fixed ? (
                         <React.Fragment>
-                            <p className={classes.FixedPrice}>Price: ${price}</p>
+                            <p className={classes.FixedPrice}>Price: <Dollar num={price} /></p>
                             <p className={classes.FixedQuantity}>Qty: {quantity}</p>
                         </React.Fragment>
                     ) : null}
                 </div>
 
 
-                <p className={classes.Price}>${formatNumber(price * quantity)}</p>
+                <p className={classes.Price}><Dollar num={cartItemPrice} /></p>
             </div>
         </div>
     )

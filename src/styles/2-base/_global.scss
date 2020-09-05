@@ -11,8 +11,7 @@
 }
 
 .full-cover {
-    height: 100%;
-    width: 100%;
+    @include square(100%);
 }
 
 
@@ -29,4 +28,8 @@
 
 .gatsby-image-full {
     @include gatsby-image-full();
+}
+
+.dollar-sign {
+    font-size: .7em;
 }

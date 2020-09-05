@@ -7,6 +7,7 @@ import { FiInfo } from 'react-icons/fi';
 import { BsHeart } from 'react-icons/bs';
 import { Link } from 'gatsby';
 
+
 const productCard = ({ image, type = 'product', ...props }) => {
 
 
@@ -14,6 +15,8 @@ const productCard = ({ image, type = 'product', ...props }) => {
     const imgClasses = `${classes.ProductImg} ${props.imageStyle}`;
     let cardInfo = null;
     let productBtns = null;
+
+
 
     switch (type) {
         case 'category':
@@ -32,9 +35,9 @@ const productCard = ({ image, type = 'product', ...props }) => {
             productBtns = (
                 <div className={classes.ProductBtns}>
                     <button className={classes.ProductBtn}><Link to={props.link}><FiInfo /></Link></button>
-                    <button className={classes.ProductBtn}><RiShoppingCart2Line /></button>
+                    <button className={classes.ProductBtn} onClick={props.cartBtnClicked}><RiShoppingCart2Line /></button>
                     <button className={classes.ProductBtn}><BsHeart /></button>
-                </div>
+                </div >
             )
             const productInfo = (
                 <div className={`${classes.ProductDetails} ${classes.CardDetails}`}>

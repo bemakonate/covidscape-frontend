@@ -1,30 +1,40 @@
 import React from 'react'
-import { formatNumber } from '../../../constants/helpers';
+import Dollar from '../../reusable/dollar';
+
+
+
 
 const Summary = ({ totalPrice }) => {
     return (
-        <article className="checkout-totals">
+        <article className="summary">
             <div className="checkout__text-container">
                 <h2>Summary</h2>
                 <div className="checkout-subtotal-container">
-                    <div className="subtotal-container">
-                        <p className="subtotal-label">Subtotal</p>
-                        <p className="subtotal-price"><span className="dollar-sign">$</span>{formatNumber(totalPrice)}</p>
+                    <div className="summary-row">
+                        <p className="summary-row-label">Subtotal</p>
+                        <p className="summary-row-detail"><Dollar num={totalPrice} /></p>
                     </div>
-                    <div className="subtotal-container">
-                        <p className="subtotal-label">Shipping</p>
-                        <p className="subtotal-price">Free</p>
+                    <div className="summary-row">
+                        <p className="summary-row-label">Shipping</p>
+                        <p className="summary-row-detail">Free</p>
+                    </div>
+
+                    <div className="summary-row">
+                        <p className="summary-row-label">Estimated Tax</p>
+                        <p className="summary-row-detail"><Dollar num={0} /></p>
                     </div>
                     <div className="line"></div>
-                    <div className="subtotal-container">
-                        <p className="subtotal-label total-label">Total</p>
-                        <p className="subtotal-price total-price">
-                            <span className="dollar-sign">$</span>{formatNumber(totalPrice)}
+
+                    <div className="summary-total">
+                        <p className="summary-total-label">Total</p>
+                        <p className="summary-total-price">
+                            <Dollar num={totalPrice} />
                         </p>
                     </div>
                 </div>
+                <span className="purchase-warning">Complete Form to purchase</span>
+                <button className="buy-btn" disabled>Pay <Dollar num={totalPrice} /> </button>
 
-                <button className="checkout-btn">Pay <span className="dollar-sign">$</span>{formatNumber(totalPrice)} </button>
             </div>
         </article>
     )

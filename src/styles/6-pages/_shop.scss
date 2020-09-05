@@ -37,8 +37,6 @@
     outline: none;
     padding-bottom: 10px;
     font-size: 20px;
-    // border-bottom: 1px solid #eee;
-    /* padding: 10px 20px; */
 }
 
 .shop__jumbotron-categories-list {
@@ -58,6 +56,15 @@
         background: black;
         color: white;
     }
+}
+
+.more-categories-item {
+    @include flex($center:true);
+}
+
+.more-categories-icon {
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .shop__jumbotron-categories-btn__arrow {

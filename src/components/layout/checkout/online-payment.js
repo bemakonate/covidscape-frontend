@@ -4,7 +4,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
 
 const CARD_ELEMENT_OPTIONS = {
@@ -26,7 +25,7 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 
-const CheckoutForm = ({ success }) => {
+const CheckoutForm = ({ success, cartItems, totalPrice }) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -35,7 +34,30 @@ const CheckoutForm = ({ success }) => {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: elements.getElement(CardElement),
+            metadata: {
+                orderId: "akdfkai3i2iiww9"
+            },
+            billing_details: {
+                email: "test@test.com",
+                phone: "(232)32323233",
+                name: "New User",
+                address: {
+                    line1: null,
+                },
+            }
         })
+
+
+
+
+        const cart = cartItems.map(item => {
+            return {
+                id: item.details.id,
+                quantity: item.quantity
+            }
+        })
+
+        console.log(cart);
 
         if (!error) {
             const { id } = paymentMethod;
@@ -43,10 +65,12 @@ const CheckoutForm = ({ success }) => {
             try {
                 const response = await axios.post(`http://localhost:1337/orders/payment`, {
                     id,
-                    amount: 1099
+                    amount: totalPrice * 100,
+                    cart,
                 });
 
                 const data = response.data;
+
                 // success();
             } catch (err) {
                 //Send flash message 
@@ -68,7 +92,7 @@ const CheckoutForm = ({ success }) => {
 
 
 
-const OnlinePayment = ({ setPaymentPassed }) => {
+const OnlinePayment = ({ setPaymentPassed, cartItems, totalPrice }) => {
     const [payOption, setPayOption] = useState('card');
     const payChangeHandler = (value) => setPayOption(value);
 
@@ -102,7 +126,7 @@ const OnlinePayment = ({ setPaymentPassed }) => {
 
             {/* ================Stripe elment here================= */}
             <Elements stripe={stripePromise}>
-                <CheckoutForm success={setPaymentPassed} />
+                <CheckoutForm success={setPaymentPassed} cartItems={cartItems} totalPrice={totalPrice} />
             </Elements>
             {/* ================Stripe elment here================= */}
         </article>

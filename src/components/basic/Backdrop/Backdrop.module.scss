@@ -1,0 +1,22 @@
+.Backdrop {
+    background: rgba(black, .6);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 100;
+}
+
+.JsHide {
+    display: none;
+}
+
+.Freeze {
+    overflow: hidden;
+}
+
+.BackdropContent {
+    position: relative;
+    z-index: 200;
+}

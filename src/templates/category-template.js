@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout/layout';
 import StyledProductCard from '../components/reusable/styledProductCard';
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link } from "gatsby";
 import BackgroundImage from 'gatsby-background-image';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
-
+import { BsArrowLeft } from 'react-icons/bs';
 
 
 export const query = graphql`
@@ -53,6 +52,7 @@ const AllProducts = ({ data }) => {
                 {allProducts.map(product =>
                     <StyledProductCard
                         key={product.id}
+                        product={product}
                         type="product"
                         title={product.title}
                         price={product.price}
@@ -74,8 +74,12 @@ const AllProducts = ({ data }) => {
                     className='shop__jumbotron'>
                     <div className="shop__jumbotron-content">
                         <div className="container">
-                            <p className="shop__breadcrumb-list">Home / Categories / {category.name}</p>
-                            <h1 className="shop__jumbotron-title">{category.name}</h1>
+                            <div className="jumbo__sub-content">
+                                <Link to="/products" className="jumbo__back-arrow"><BsArrowLeft /></Link>
+                                <p className="shop__breadcrumb-list">Home / Categories / {category.name}</p>
+                                <h1 className="shop__jumbotron-title">{category.name}</h1>
+                            </div>
+
                         </div>
 
                     </div>

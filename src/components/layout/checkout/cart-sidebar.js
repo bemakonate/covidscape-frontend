@@ -2,19 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { Link } from 'gatsby';
 import CartItem from '../../reusable/cartItem';
-import { formatNumber } from '../../../constants/helpers';
+import Backdrop from '../../basic/Backdrop/Backdrop';
+import Dollar from '../../reusable/dollar';
 
 
 
 
 const CartSidebar = (props) => {
-    const [cartItems, setCartItems] = useState(props.cartItems);
+
+    const cartItems = props.cartItems;
+    const [sidebarTranstion, setSidebarTransition] = useState('');
     let cartSidebarContent = null;
 
-
     useEffect(() => {
-        setCartItems(props.cartItems)
-    }, [props.cartItems])
+        if (props.isCartSidebarOpen) {
+            setSidebarTransition('js-og-position')
+        } else {
+            setSidebarTransition('')
+        }
+    }, [props.isCartSidebarOpen]);
+
 
 
     if (cartItems.length > 0) {
@@ -38,21 +45,28 @@ const CartSidebar = (props) => {
                 <div className="line"></div>
                 <div className="subtotal-container">
                     <p className="subtotal-label">Subtotal</p>
-                    <p className="subtotal-price">${formatNumber(props.cartTotalPrice || 0)}</p>
+                    <p className="subtotal-price"><Dollar num={props.cartTotalPrice} /></p>
                 </div>
                 <Link to="/cart" className="cart-sidebar__cart-link" onClick={props.closeCartSidebar}>View Cart</Link>
             </React.Fragment>
         )
+    } else {
+        cartSidebarContent = (
+            <div>
+                No Items in your cart
+            </div>
+        )
     }
     return (
-        <div className={`cart-sidebar ${props.isCartSidebarOpen ? 'js-og-position' : ''}`}>
-            <div className="cart-sidebar__container">
-                <div className="cart-sidebar__close" onClick={props.closeCartSidebar}><MdClose /></div>
-                {cartSidebarContent}
+        <Backdrop show={props.isCartSidebarOpen} click={props.closeCartSidebar}>
 
+            <div className={`cart-sidebar ${sidebarTranstion}`}>
+                <div className="cart-sidebar__container">
+                    <div className="cart-sidebar__close" onClick={props.closeCartSidebar}><MdClose /></div>
+                    {cartSidebarContent}
+                </div>
             </div>
-
-        </div>
+        </Backdrop>
     )
 }
 

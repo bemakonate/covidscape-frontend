@@ -3,20 +3,21 @@ import Layout from '../components/layout/layout';
 import CartItem from '../components/reusable/cartItem';
 import { Link } from 'gatsby';
 import { connect } from 'react-redux';
-import { formatNumber } from '../constants/helpers';
 import * as actions from '../store/actions';
 import Dollar from '../components/reusable/dollar';
+import { cartSubtotal } from '../constants/helpers/cart-helpers';
 
 
 const Cart = (props) => {
-    const { cartItems, onChangeItemQuantity, onRemoveItem, totalPrice, loadedCart } = props;
+    const { cartItems, onChangeItemQuantity, onRemoveItem } = props;
     let cartJSX = null;
     if (cartItems.length > 0) {
-        cartJSX = (
 
+        cartJSX = (
             <section className="cart-section">
                 <div className="cart-items">
                     <div className="cart__text-container">
+
                         {cartItems.map(item =>
                             <CartItem
                                 expand
@@ -27,6 +28,7 @@ const Cart = (props) => {
                                 title={item.details.title}
                                 quantity={item.quantity}
                                 removeItem={onRemoveItem}
+                                slug={`/products/${item.details.slug}`}
                                 changeItemQuantity={onChangeItemQuantity} />)}
                     </div>
                 </div>
@@ -35,7 +37,7 @@ const Cart = (props) => {
                     <div className="cart__text-container cart-subtotal-container">
                         <div className="cart__subtotal">
                             <p className="cart__subtotal-label">Subtotal:</p>
-                            <p className="cart__subtotal-price"><Dollar num={totalPrice} /></p>
+                            <p className="cart__subtotal-price"><Dollar num={cartSubtotal(cartItems)} /></p>
                         </div>
                         <Link className="checkout-btn" to="/checkout">Checkout</Link>
                     </div>

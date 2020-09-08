@@ -10,7 +10,7 @@ export const query = graphql`
 query GetCategory($slug: String){
     products: allStrapiProducts {
       nodes {
-        id
+        id:strapiId
         price
         title
         slug

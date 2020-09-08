@@ -1,11 +1,18 @@
 import React from 'react'
-import { formatNumber } from '../../../constants/helpers';
+import { formatNumber, centsToDollar } from '../../../constants/helpers';
 import { BiDollar } from 'react-icons/bi';
 
 const Dollar = (props) => {
+    let numText = null;
+    if (props.num) {
+        numText = formatNumber(props.num);
+    }
+    else if (props.cents) {
+        numText = centsToDollar(props.cents);
+    }
     return (
         <React.Fragment>
-            <span><BiDollar className="dollar-sign" /></span>{formatNumber(props.num)}
+            <span><BiDollar className="dollar-sign" /></span>{numText}
         </React.Fragment>
     )
 }

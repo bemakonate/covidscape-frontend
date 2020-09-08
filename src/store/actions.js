@@ -31,6 +31,13 @@ export const addToCartDispatch = (details, quantity) => {
     }
 }
 
+//Clear cart
+export const clearCart = () => {
+    return {
+        type: actionTypes.CLEAR_USER_CART,
+    }
+}
+
 //Remove item
 export const removeItem = (id) => {
     return async (dispatch, getState) => {

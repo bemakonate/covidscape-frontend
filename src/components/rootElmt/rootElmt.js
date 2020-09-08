@@ -7,7 +7,7 @@ const query = graphql`
   {
     allStrapiProducts {
       nodes {
-        id
+        id:strapiId
         title
         price
         description
@@ -26,32 +26,32 @@ const query = graphql`
 
 
 const RootElmt = (props) => {
-    const data = useStaticQuery(query);
-    const currentProducts = data.allStrapiProducts.nodes;
-    const { onGetUserCart } = props;
+  const data = useStaticQuery(query);
+  const currentProducts = data.allStrapiProducts.nodes;
+  const { onGetUserCart } = props;
 
-    useEffect(() => {
-        console.log('App loaded');
-        onGetUserCart(currentProducts);
-    }, [])
-    return (
-        <React.Fragment>
-            {props.children}
-        </React.Fragment>
-    )
+  useEffect(() => {
+    console.log('App loaded');
+    onGetUserCart(currentProducts);
+  }, [])
+  return (
+    <React.Fragment>
+      {props.children}
+    </React.Fragment>
+  )
 };
 
 
 const mapStateToProps = state => {
-    return {
-        cart: state.cart,
-    }
+  return {
+    cart: state.cart,
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onGetUserCart: (products) => dispatch(actions.getUserCart(products))
-    }
+  return {
+    onGetUserCart: (products) => dispatch(actions.getUserCart(products))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootElmt);

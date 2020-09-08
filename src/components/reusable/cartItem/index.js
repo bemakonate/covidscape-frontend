@@ -26,7 +26,7 @@ const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => 
         <div className={`${classes.CartItem} ${props.expand ? classes.Expand : ''}`}>
 
             {!props.fixed ? <div className={classes.RemoveBtn} onClick={() => props.removeItem(id)}><IoIosCloseCircleOutline /></div> : null}
-            <Link to={slug}>
+            <Link to={!props.fixed ? slug : '#'}>
                 <AspectRatio height="100%" styleClass={props.imageWrapperClass ? props.imageWrapperClass : ''}>
                     <GatsbyImageFull image={image} />
                     <div className={classes.ItemOverlay}></div>

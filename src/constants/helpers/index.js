@@ -4,9 +4,13 @@ export const formatNumber = (num) => {
     if (!num) {
         num = 0;
     }
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return num.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
+export const centsToDollar = (num) => {
+    const int = formatNumber(num / 100)
+    return int;
+}
 
 export const updatedObj = (oldObj, updatedValues) => {
     return {

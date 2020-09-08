@@ -28,6 +28,7 @@ export const query = graphql`
 
     allStrapiProducts {
       nodes {
+        id:strapiId
         title
         slug
         price

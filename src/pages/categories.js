@@ -10,9 +10,6 @@ export const query = graphql`
         id
         name
         slug
-        products {
-          id
-        }
         image {
           childImageSharp {
             fluid {

@@ -65,6 +65,11 @@ const updateTotalPrice = (state, action) => updatedObj(state, { totalPrice: acti
 const updateTotalItems = (state, action) => updatedObj(state, { totalItems: action.payload.items });
 
 const getUserCart = (state, action) => updatedObj(state, { cart: action.payload.cart, loadedCart: true })
+const clearUserCart = (state, action) => updatedObj(state, {
+    cart: [],
+    totalItems: null,
+    totalPrice: null,
+})
 
 const reducer = (state = intialState, action) => {
     switch (action.type) {
@@ -76,6 +81,7 @@ const reducer = (state = intialState, action) => {
         case actionTypes.UPDATE_TOTAL_ITEMS: return updateTotalItems(state, action);
         case actionTypes.UPDATE_TOTAL_PRICE: return updateTotalPrice(state, action);
         case actionTypes.GET_USER_CART: return getUserCart(state, action);
+        case actionTypes.CLEAR_USER_CART: return clearUserCart(state, action);
         default:
             return state
     }

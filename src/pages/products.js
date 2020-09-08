@@ -12,7 +12,7 @@ export const query = graphql`
   {
     allStrapiProducts {
       nodes {
-        id
+        id:strapiId
         price
         title
         slug
@@ -39,9 +39,6 @@ export const query = graphql`
           id
           name
           slug
-          products {
-            id
-          }
           image {
             childImageSharp {
               fluid {

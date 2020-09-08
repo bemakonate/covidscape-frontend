@@ -12,7 +12,7 @@ export const query = graphql`
 query GetProduct($slug: String){
     product: strapiProducts(slug: {eq: $slug}) {
       title
-      id
+      id:strapiId
       price
       description
       slug

@@ -17,17 +17,7 @@ const Contact = (props) => {
     const [form, setForm] = useState(null); //form values, represents values
     const [formConfig, setFormConfig] = useState(null); //form elements, store actual values of the form
     const [isWholeFormValid, setIsWholeFormValid] = useState(true);
-    let errorMsgs = null;
-
-    if (formConfig) {
-        const invalidInputs = formConfig.filter(input => input.errorMsg && input.touched);
-        errorMsgs = invalidInputs.map(input => {
-            return {
-                errorMsg: input.errorMsg,
-                label: input.label
-            }
-        });
-    }
+    const [errorMsgs, setErrorMsgs] = useState(null);
 
     //compentDidMount || Create the form values and form config
     useEffect(() => {
@@ -37,6 +27,7 @@ const Contact = (props) => {
         setForm(newForm);
         setFormConfig(newFormConfig);
     }, []);
+
 
     //update form validity values
     useEffect(() => {
@@ -52,14 +43,31 @@ const Contact = (props) => {
     }, [form])
 
 
+    //Check if the entire form can pass
     useEffect(() => {
         if (formConfig) {
+
+            //Change the form error messages
+            const invalidInputs = formConfig.filter(input => input.errorMsg && input.touched);
+            const newErrorMsgs = invalidInputs.map(input => {
+                return {
+                    errorMsg: input.errorMsg,
+                    label: input.label
+                }
+            });
+            setErrorMsgs(newErrorMsgs);
+
             const isFormValid = updateIsWholeFormValid(formConfig);
             setIsWholeFormValid(isFormValid);
         }
     }, [formConfig])
 
 
+    useEffect(() => {
+        if (props.getIsFormValid) {
+            props.getIsFormValid(isWholeFormValid)
+        }
+    }, [isWholeFormValid])
 
     //Change the form input to be assigned as touched by user
     const handleChange = ({ inputId, event }) => {

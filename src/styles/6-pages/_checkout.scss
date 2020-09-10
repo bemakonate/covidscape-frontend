@@ -67,6 +67,7 @@
 }
 
 
+
 .buy-btn {
     @extend .btn;
     @extend .btn-dark;
@@ -80,6 +81,10 @@
 
 .buy-btn:disabled {
     background: rgba(black, .3);
+}
+
+.checkout__summary--med {
+    display: none;
 }
 
 .purchase-warning {
@@ -134,6 +139,14 @@
         margin-bottom: 0;
     }
 
+    .checkout__summary--mb {
+        display: none;
+    }
+
+    .checkout__summary--med {
+        display: block;
+    }
+
     .checkout__wrapper {
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -147,15 +160,15 @@
     }
 
     .contact-info-section {
-        order: 1;
-    }
-
-    .payment-option-section {
         order: 2;
     }
 
-    .order-details-section {
+    .payment-option-section {
         order: 3;
+    }
+
+    .order-details-section {
+        order: 1;
     }
 }
 

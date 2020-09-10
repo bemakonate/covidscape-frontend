@@ -4,15 +4,10 @@ import Dollar from '../../reusable/dollar';
 
 
 
-const Summary = ({ total, shipping, taxes, subtotal, shouldPayShipping, updateShouldChargeUser, isStripeLoaded }) => {
-    const requestChargeUser = () => {
-        if (isStripeLoaded) {
-            updateShouldChargeUser(true);
-        }
+const Summary = ({ total, shipping, taxes, subtotal, shouldPayShipping, styleClass }) => {
 
-    }
     return (
-        <article className="summary">
+        <article className={`summary ${styleClass ? styleClass : ''}`}>
             <div className="checkout__text-container">
                 <h2>Summary</h2>
                 <div className="checkout-subtotal-container">
@@ -40,9 +35,6 @@ const Summary = ({ total, shipping, taxes, subtotal, shouldPayShipping, updateSh
                         </p>
                     </div>
                 </div>
-                <span className="purchase-warning">Complete Form to purchase</span>
-                <button className="buy-btn" disabled={!isStripeLoaded} onClick={requestChargeUser}>Pay <Dollar cents={total} /> </button>
-
             </div>
         </article>
     )

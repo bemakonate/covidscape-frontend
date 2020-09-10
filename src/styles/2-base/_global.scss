@@ -33,3 +33,13 @@
 .dollar-sign {
     font-size: .7em;
 }
+
+//spinner
+.loading-bg {
+    background: rgba(green, .5);
+}
+
+.loading-content {
+    @include flex($center: true);
+    padding-bottom: 30vh;
+}

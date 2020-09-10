@@ -101,7 +101,7 @@ const AllProducts = ({ data }) => {
               </div>
               {categoriesDropdown && <ul className="shop__jumbotron-categories-list">
                 {categories.map(category =>
-                  <li><Link className="shop__jumbotron-categories-item" to={`/categories/${category.slug}`}>{category.name}</Link></li>)}
+                  <li key={category.id}><Link className="shop__jumbotron-categories-item" to={`/categories/${category.slug}`}>{category.name}</Link></li>)}
                 <li>
                   <Link className="shop__jumbotron-categories-item more-categories-item" to="/categories">
                     More <CgMore className="more-categories-icon" />

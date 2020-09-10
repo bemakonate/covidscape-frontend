@@ -121,6 +121,23 @@ const updateCartLocalStorage = (cartData) => {
 }
 
 
+export const addOrderData = (order) => {
+    return {
+        type: actionTypes.ADD_ORDER_DATA,
+        payload: {
+            orderData: order
+        }
+    }
+}
+
+export const addOrderCart = (orderCart) => {
+    return {
+        type: actionTypes.ADD_ORDER_CART,
+        payload: {
+            orderCart,
+        }
+    }
+}
 
 
 //============HELPERS=================

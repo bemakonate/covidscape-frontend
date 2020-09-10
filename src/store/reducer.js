@@ -8,6 +8,8 @@ const intialState = {
     totalItems: null,
     totalPrice: null,
     loadedCart: false,
+    orderData: null,
+    orderCart: null,
 }
 
 
@@ -64,11 +66,19 @@ const closeCartSidebar = (state, action) => updatedObj(state, { isCartSidebarOpe
 const updateTotalPrice = (state, action) => updatedObj(state, { totalPrice: action.payload.price });
 const updateTotalItems = (state, action) => updatedObj(state, { totalItems: action.payload.items });
 
-const getUserCart = (state, action) => updatedObj(state, { cart: action.payload.cart, loadedCart: true })
+const getUserCart = (state, action) => updatedObj(state, { cart: action.payload.cart, loadedCart: true });
 const clearUserCart = (state, action) => updatedObj(state, {
     cart: [],
     totalItems: null,
     totalPrice: null,
+})
+
+const addOrderData = (state, action) => updatedObj(state, {
+    orderData: action.payload.orderData,
+})
+
+const addCheckoutCartImages = (state, action) => updatedObj(state, {
+    orderCart: action.payload.orderCart,
 })
 
 const reducer = (state = intialState, action) => {
@@ -82,6 +92,8 @@ const reducer = (state = intialState, action) => {
         case actionTypes.UPDATE_TOTAL_PRICE: return updateTotalPrice(state, action);
         case actionTypes.GET_USER_CART: return getUserCart(state, action);
         case actionTypes.CLEAR_USER_CART: return clearUserCart(state, action);
+        case actionTypes.ADD_ORDER_DATA: return addOrderData(state, action);
+        case actionTypes.ADD_ORDER_CART: return addCheckoutCartImages(state, action);
         default:
             return state
     }

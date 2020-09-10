@@ -7,7 +7,7 @@ import CheckoutForm from './checkoutForm';
 
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
 
-const OnlinePayment = ({ setPaymentPassed, cartItems, getServerTotal, billingDetails, clearCart, shouldChargeUser, getIsStripeLoaded, updateShouldChargeUser }) => {
+const OnlinePayment = ({ getIsPaymentSuccessful, billingDetails, getIsStripeLoaded, serverCart, token, serverTotal, getOrderData, getIsPaymentBeingProcessed }) => {
     const [payOption, setPayOption] = useState('card');
     const payChangeHandler = (value) => setPayOption(value);
 
@@ -42,14 +42,14 @@ const OnlinePayment = ({ setPaymentPassed, cartItems, getServerTotal, billingDet
             {/* ================Stripe elment here================= */}
             <Elements stripe={stripePromise}>
                 <CheckoutForm
-                    success={setPaymentPassed}
-                    cartItems={cartItems}
-                    getServerTotal={getServerTotal}
+                    serverTotal={serverTotal}
+                    getIsPaymentSuccessful={getIsPaymentSuccessful}
+                    token={token}
+                    serverCart={serverCart}
                     billingDetails={billingDetails}
-                    clearCart={clearCart}
-                    shouldChargeUser={shouldChargeUser}
                     getIsStripeLoaded={getIsStripeLoaded}
-                    updateShouldChargeUser={updateShouldChargeUser} />
+                    getOrderData={getOrderData}
+                    getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
             </Elements>
             {/* ================Stripe elment here================= */}
         </article>

@@ -8,15 +8,19 @@
     z-index: 100;
 }
 
-.JsHide {
-    display: none;
-}
-
 .Freeze {
     overflow: hidden;
 }
 
 .BackdropContent {
-    position: relative;
+    position: fixed;
     z-index: 200;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.JsHide {
+    display: none;
 }

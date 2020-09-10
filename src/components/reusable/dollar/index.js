@@ -4,7 +4,7 @@ import { BiDollar } from 'react-icons/bi';
 
 const Dollar = (props) => {
     let numText = null;
-    if (props.num) {
+    if (props.num >= 0) {
         numText = formatNumber(props.num);
     }
     else if (props.cents) {

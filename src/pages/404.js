@@ -1,10 +1,12 @@
 import React from 'react'
+import Layout from '../components/layout/layout';
 
 const errorPage = () => {
     return (
-        <div>
+        <Layout addPadding>
             This is an error page
-        </div>
+        </Layout>
+
     )
 }
 

@@ -61,7 +61,9 @@
     }
 
     .ItemContent {
-        @include flex($just:space-between);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-gap: 10px;
     }
 
 

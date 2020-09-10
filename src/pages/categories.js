@@ -10,6 +10,9 @@ export const query = graphql`
         id
         name
         slug
+        products {
+          id
+        }
         image {
           childImageSharp {
             fluid {
@@ -41,6 +44,7 @@ const Categories = ({ data }) => {
       </div>
     )
   }
+
   return (
     <Layout>
       <header className="categories__jumbotron">

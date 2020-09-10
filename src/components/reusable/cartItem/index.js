@@ -18,6 +18,7 @@ const CartItem = ({ quantity = 1, price, image, title, id, slug, ...props }) => 
         if (props.changeItemQuantity) {
             props.changeItemQuantity(id, itemQuantity);
         }
+        return () => null;
 
     }, [itemQuantity])
 

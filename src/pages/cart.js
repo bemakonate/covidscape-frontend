@@ -5,19 +5,19 @@ import { Link } from 'gatsby';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions';
 import Dollar from '../components/reusable/dollar';
+import Spinner from '../components/reusable/spinner';
 import { cartSubtotal } from '../constants/helpers/cart-helpers';
-
+import BackdropSpinner from '../components/reusable/backdropSpinner';
 
 const Cart = (props) => {
     const { cartItems, onChangeItemQuantity, onRemoveItem } = props;
     let cartJSX = null;
-    if (cartItems.length > 0) {
 
+    if (cartItems.length > 0) {
         cartJSX = (
             <section className="cart-section">
                 <div className="cart-items">
                     <div className="cart__text-container">
-
                         {cartItems.map(item =>
                             <CartItem
                                 expand
@@ -63,12 +63,10 @@ const Cart = (props) => {
             <div className="container">
                 {cartJSX}
             </div>
-
-
-
-
         </Layout>
     )
+
+    // return <BackdropSpinner show styleClass="loading-bg" spinnerColor="black"></BackdropSpinner>
 }
 
 const mapStateToProps = state => {

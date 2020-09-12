@@ -3,11 +3,14 @@ export const getTotalItems = (cart) => {
     cart.forEach(item => {
         totalItems += item.quantity;
     })
+
+
     return totalItems;
 }
 
 export const getTotalPrice = (cart) => {
     let totalPrice = 0;
+
     cart.forEach(item => {
         totalPrice += item.details.price * item.quantity
     })

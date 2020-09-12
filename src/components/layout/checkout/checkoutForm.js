@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements, PaymentRequestButtonElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import Dollar from '../../reusable/dollar';
-import BackdropSpinner from '../../reusable/backdropSpinner';
-
+import { connect } from 'react-redux';
+import * as layoutActions from '../../../store/layout/actions';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -36,7 +36,8 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
 
 
     //Check to see if stripe data has been loaded into the component
-    useEffect(() => setIsStripeLoaded(stripe), [stripe])
+    useEffect(() => setIsStripeLoaded(stripe), [stripe]);
+
 
     //==========UPDATE CHECKOUTPAGE PROPS==============
     useEffect(() => {
@@ -60,7 +61,6 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
 
     useEffect(() => {
         if (props.getIsPaymentBeingProcessed) {
-            console.log('checkouForm.js paymentBeingProcessed', paymentBeingProcessed)
             props.getIsPaymentBeingProcessed(paymentBeingProcessed)
         }
     }, [paymentBeingProcessed])
@@ -81,13 +81,13 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
 
             //If the card payment had a problem throw the error
             if (result.error) {
-
                 throw new Error(result.error.message);
             }
 
         } catch (err) {
             //Deal with card error here
             setPaymentBeingProcessed(false);
+            props.openFlashMessage({ message: err.message })
             console.log(err);
         }
 
@@ -111,10 +111,9 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
 
         setOrderData(res.data);
         setPaymentBeingProcessed(false);
+        props.closeFlashMessage();
         setSuccess(true);
     }
-
-
 
 
     return (
@@ -123,15 +122,22 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
             <div className="card-element">
                 <CardElement options={CARD_ELEMENT_OPTIONS} />
             </div>
-            <p>Error goes here</p>
-            <span className="purchase-warning">Complete Form to purchase</span>
+            {!props.isContactFormValid ? <span className="purchase-warning">Complete Form to purchase</span> : null}
             <button
                 className="buy-btn"
-                disabled={!stripe}
+                disabled={(!stripe) || (!props.isContactFormValid)}
                 onClick={chargeUserHandler}>Pay <Dollar cents={props.serverTotal} /></button>
         </form>
     );
 
 }
 
-export default CheckoutForm;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        openFlashMessage: ({ message, props }) => dispatch(layoutActions.openFlashMessage({ message, props })),
+        closeFlashMessage: () => dispatch(layoutActions.closeFlashMessage()),
+    }
+
+}
+export default connect(null, mapDispatchToProps)(CheckoutForm);

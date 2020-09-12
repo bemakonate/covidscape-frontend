@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import formDefaultConfig from '../../../constants/contactFormConfig';
+import { GrLocation } from 'react-icons/gr';
 import {
     createFormConfig,
     createFormValues,
@@ -7,7 +8,8 @@ import {
     updateFormConfig,
     updateFormValues,
     createInput,
-    updateIsWholeFormValid
+    updateIsWholeFormValid,
+    removeFields
 } from '../../../constants/helpers/form-helpers'
 
 
@@ -29,6 +31,7 @@ const Contact = (props) => {
     }, []);
 
 
+
     //update form validity values
     useEffect(() => {
         if (formConfig) {
@@ -46,7 +49,6 @@ const Contact = (props) => {
     //Check if the entire form can pass
     useEffect(() => {
         if (formConfig) {
-
             //Change the form error messages
             const invalidInputs = formConfig.filter(input => input.errorMsg && input.touched);
             const newErrorMsgs = invalidInputs.map(input => {
@@ -55,7 +57,6 @@ const Contact = (props) => {
                     label: input.label
                 }
             });
-            setErrorMsgs(newErrorMsgs);
 
             const isFormValid = updateIsWholeFormValid(formConfig);
             setIsWholeFormValid(isFormValid);
@@ -69,6 +70,20 @@ const Contact = (props) => {
         }
     }, [isWholeFormValid])
 
+    //Custom useEffect to update the address value
+    useEffect(() => {
+        if (formConfig) {
+            const newFormConfig = formConfig.map(field => {
+                if (field.id === 'address') {
+                    return { ...field, value: props.addressInput }
+                }
+                return field;
+            })
+            setFormConfig(newFormConfig);
+            setForm({ ...form, address: props.addressInput })
+        }
+    }, [props.addressInput])
+
     //Change the form input to be assigned as touched by user
     const handleChange = ({ inputId, event }) => {
         const newFormConfig = updateFormConfig({ formConfig: formConfig, inputId: inputId, event: event });
@@ -80,30 +95,45 @@ const Contact = (props) => {
 
 
 
-    const contactRow = ({ label, id, ...props }) => {
+    const contactRow = ({ label, id, inputClass, ...props }) => {
         return (
             <tr className={`contact-row ${props.touched && (!props.valid) ? 'error' : ''}`}>
                 <td className="contact-label">{label} {(props.rules && props.rules.required) ? <span>*</span> : null}</td>
-                <td className="contact-input-wrapper">
+                <td className={`contact-input-wrapper ${props.inputWrapperClass ? props.inputWrapperClass : ''}`}>
                     {createInput({
                         change: handleChange,
-                        className: "contact-input",
+                        className: `contact-input ${inputClass ? inputClass : ''}`,
                         inputId: id,
                         ...props
                     })}
+                    {props.adjcentElmts}
                 </td>
             </tr>
         )
     }
 
+    let addressField = null;
+    let inputFormConfig = null;
+
+    if (formConfig) {
+        addressField = formConfig.find(field => field.id === 'address');
+        inputFormConfig = removeFields(formConfig, ['address'])
+    }
 
 
     return (
         <table className="checkout__contact-form">
             <tbody>
-                {formConfig && formConfig.map((rowConfig, index) => (
+                {inputFormConfig && inputFormConfig.map((rowConfig, index) => (
                     <React.Fragment key={index}>{contactRow(rowConfig)}</React.Fragment>
                 ))}
+                {addressField && contactRow({
+                    ...addressField,
+                    inputWrapperClass: 'addressWrapper',
+                    inputClass: "address-textarea",
+                    adjcentElmts: <button className="address-btn" onClick={props.openAddressModal}><GrLocation /></button>,
+                })}
+
             </tbody>
             <tfoot>
                 <tr>

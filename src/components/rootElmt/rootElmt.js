@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { graphql, useStaticQuery } from "gatsby";
-import * as  actions from '../../store/actions';
+import * as  actions from '../../store/cart/actions';
 
 const query = graphql`
   {

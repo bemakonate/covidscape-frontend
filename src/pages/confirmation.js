@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../components/layout/layout';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../store/cart/actions';
 import CartItem from '../components/reusable/cartItem';
 import Dollar from '../components/reusable/dollar';
 
@@ -121,10 +121,10 @@ const Confirmation = (props) => {
 
 const mapStateToProps = state => {
     return {
-        cartItems: state.cart,
-        totalPrice: state.totalPrice,
-        orderData: state.orderData,
-        orderCart: state.orderCart,
+        // cartItems: state.cart.cart,
+        // totalPrice: state.cart.totalPrice,
+        orderData: state.cart.orderData,
+        orderCart: state.cart.orderCart,
     }
 }
 

@@ -7,9 +7,22 @@ import CheckoutForm from './checkoutForm';
 
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
 
-const OnlinePayment = ({ getIsPaymentSuccessful, billingDetails, getIsStripeLoaded, serverCart, token, serverTotal, getOrderData, getIsPaymentBeingProcessed }) => {
+const OnlinePayment = ({ getIsPaymentSuccessful, billingDetails, getIsStripeLoaded, serverCart, token, serverTotal, getOrderData, getIsPaymentBeingProcessed, isContactFormValid }) => {
     const [payOption, setPayOption] = useState('card');
     const payChangeHandler = (value) => setPayOption(value);
+
+    const cardPaymentJSX = (
+        <CheckoutForm
+            serverTotal={serverTotal}
+            getIsPaymentSuccessful={getIsPaymentSuccessful}
+            token={token}
+            serverCart={serverCart}
+            billingDetails={billingDetails}
+            getIsStripeLoaded={getIsStripeLoaded}
+            getOrderData={getOrderData}
+            isContactFormValid={isContactFormValid}
+            getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
+    )
 
     return (
         <article className="payment-option-wrapper">
@@ -38,20 +51,10 @@ const OnlinePayment = ({ getIsPaymentSuccessful, billingDetails, getIsStripeLoad
                     <label htmlFor="apple-pay" className="payment-radio-label"><FaApple className="payment-icon" /> Apple Pay </label>
                 </div>
             </div>
-
-            {/* ================Stripe elment here================= */}
             <Elements stripe={stripePromise}>
-                <CheckoutForm
-                    serverTotal={serverTotal}
-                    getIsPaymentSuccessful={getIsPaymentSuccessful}
-                    token={token}
-                    serverCart={serverCart}
-                    billingDetails={billingDetails}
-                    getIsStripeLoaded={getIsStripeLoaded}
-                    getOrderData={getOrderData}
-                    getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
+                {payOption === 'card' ? cardPaymentJSX : null}
             </Elements>
-            {/* ================Stripe elment here================= */}
+
         </article>
     )
 }

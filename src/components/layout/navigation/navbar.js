@@ -9,7 +9,8 @@ import { RiSurgicalMaskLine } from 'react-icons/ri';
 
 const navigation = (props) => {
     const currentPath = window.location.pathname;
-    const ifToOpenCartSidebar = currentPath !== '/cart' ? props.openCartSidebar : null;
+    const ifToOpenCartSidebar = (currentPath !== '/cart') || (currentPath !== '/checkout') ? props.openCartSidebar : null;
+
     return (
         <nav className="nav">
 

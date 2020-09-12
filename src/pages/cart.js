@@ -3,7 +3,7 @@ import Layout from '../components/layout/layout';
 import CartItem from '../components/reusable/cartItem';
 import { Link } from 'gatsby';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../store/cart/actions';
 import Dollar from '../components/reusable/dollar';
 import Spinner from '../components/reusable/spinner';
 import { cartSubtotal } from '../constants/helpers/cart-helpers';
@@ -71,9 +71,9 @@ const Cart = (props) => {
 
 const mapStateToProps = state => {
     return {
-        cartItems: state.cart,
-        totalPrice: state.totalPrice,
-        loadedCart: state.loadedCart
+        cartItems: state.cart.cart,
+        totalPrice: state.cart.totalPrice,
+        loadedCart: state.cart.loadedCart
     }
 }
 const mapDispatchToProps = dispatch => {

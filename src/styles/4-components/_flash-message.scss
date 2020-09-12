@@ -1,0 +1,29 @@
+.flash-message {
+    @include flex($just:space-between, $align:center);
+    background: rgb(255, 145, 145);
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 80px;
+    right: 5%;
+    left: 5%;
+    z-index: 30;
+    border-radius: 3px;
+}
+
+.flash-message__close {
+    font-size: 25px;
+    color: white;
+}
+
+.flash-message__close-container {
+    @include flex($center:true);
+    padding-left: 30px;
+}
+
+@include mq('med') {
+    .flash-message {
+        right: 10%;
+        left: 10%;
+    }
+}

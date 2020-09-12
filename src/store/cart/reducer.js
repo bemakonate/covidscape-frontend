@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { updatedObj } from '../constants/helpers';
+import { updatedObj } from '../../constants/helpers';
 
 
 const intialState = {
@@ -69,8 +69,8 @@ const updateTotalItems = (state, action) => updatedObj(state, { totalItems: acti
 const getUserCart = (state, action) => updatedObj(state, { cart: action.payload.cart, loadedCart: true });
 const clearUserCart = (state, action) => updatedObj(state, {
     cart: [],
-    totalItems: null,
-    totalPrice: null,
+    totalItems: 0,
+    totalPrice: 0,
 })
 
 const addOrderData = (state, action) => updatedObj(state, {

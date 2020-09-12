@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../components/layout/layout';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../store/cart/actions';
 import { graphql } from "gatsby";
 import GatsbyImage from 'gatsby-image';
 import AspectRatio from '../components/basic/aspectRatio/aspectRatio';

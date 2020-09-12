@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import * as actions from '../../store/cart/actions';
 import Navbar from './navigation/navbar';
 import Sidebar from './navigation/sidebar';
 import Footer from './footer/footer';
 import CartSidebar from './checkout/cart-sidebar';
 import '../../styles/main.scss';
+import FlashMessage from '../layout/flashMessage/flashMessage';
 
 const Layout = ({ children, addPadding = false, ...props }) => {
 
     //Cart Sidebar props
-    const { onOpenCartSidebar, onCloseCartSidebar, isCartSidebarOpen, cartItems, onChangeItemQuantity, onRemoveItem, cartTotalPrice, cartTotalItems } = props;
+    const { onOpenCartSidebar, onCloseCartSidebar, isCartSidebarOpen, cartItems, onChangeItemQuantity, onRemoveItem, cartTotalPrice, cartTotalItems, isFlashMessageOpen } = props;
 
 
     //Sidebar props
@@ -21,6 +22,7 @@ const Layout = ({ children, addPadding = false, ...props }) => {
 
     return (
         <div className={`layout ${addPadding ? 'layout-padding' : null}`}>
+            <FlashMessage />
             <Navbar
                 openSidebar={openSidebar}
                 openCartSidebar={onOpenCartSidebar}
@@ -49,10 +51,11 @@ const Layout = ({ children, addPadding = false, ...props }) => {
 
 const mapStateToProps = state => {
     return {
-        isCartSidebarOpen: state.isCartSidebarOpen,
-        cartItems: state.cart,
-        cartTotalPrice: state.totalPrice,
-        cartTotalItems: state.totalItems,
+        isCartSidebarOpen: state.cart.isCartSidebarOpen,
+        cartItems: state.cart.cart,
+        cartTotalPrice: state.cart.totalPrice,
+        cartTotalItems: state.cart.totalItems,
+        isFlashMessageOpen: state.layout.isFlashMessageOpen,
     }
 }
 

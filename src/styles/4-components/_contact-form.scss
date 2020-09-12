@@ -66,7 +66,24 @@ $checkout-contact-row-brdr: 5px;
     }
 }
 
+.addressWrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
 
+.address-textarea {
+    resize: none;
+}
+
+.address-btn {
+    @include square(30px);
+    @include flex($center:true);
+    border: none;
+    outline: none;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 23px;
+}
 
 @include mq('xs') {
     .contact-label {

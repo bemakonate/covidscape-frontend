@@ -38,7 +38,9 @@ const CartSidebar = (props) => {
                             slug={`/products/${item.details.slug}`}
                             quantity={item.quantity}
                             removeItem={props.removeItem}
-                            changeItemQuantity={props.changeItemQuantity} />)}
+                            changeItemQuantity={props.changeItemQuantity} />
+
+                    )}
                 </div>
 
 

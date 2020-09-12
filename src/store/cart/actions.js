@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { getTotalItemsAndPrice } from '../constants/helpers/custom-helpers';
+import { getTotalItemsAndPrice } from '../../constants/helpers/custom-helpers';
 
 
 export const openCartSidebar = () => {
@@ -18,7 +18,8 @@ export const closeCartSidebar = () => {
 export const addToCart = (details, quantity) => {
     return async (dispatch, getState) => {
         await dispatch(addToCartDispatch(details, quantity));
-        const cartData = getState().cart
+        const cartData = getState().cart.cart;
+
         updateItemsAndPrice(dispatch, cartData);
         updateCartLocalStorage(cartData);
     }
@@ -33,6 +34,7 @@ export const addToCartDispatch = (details, quantity) => {
 
 //Clear cart
 export const clearCart = () => {
+    localStorage.removeItem('cart');
     return {
         type: actionTypes.CLEAR_USER_CART,
     }
@@ -42,8 +44,8 @@ export const clearCart = () => {
 export const removeItem = (id) => {
     return async (dispatch, getState) => {
         await dispatch(removeItemDispatch(id));
-        updateItemsAndPrice(dispatch, getState().cart);
-        updateCartLocalStorage(getState().cart);
+        updateItemsAndPrice(dispatch, getState().cart.cart);
+        updateCartLocalStorage(getState().cart.cart);
     }
 }
 export const removeItemDispatch = (id) => {
@@ -58,8 +60,8 @@ export const removeItemDispatch = (id) => {
 export const changeItemQuantity = (id, newQuantity) => {
     return async (dispatch, getState) => {
         await dispatch(changeItemQuantityDispatch(id, newQuantity));
-        updateItemsAndPrice(dispatch, getState().cart);
-        updateCartLocalStorage(getState().cart);
+        updateItemsAndPrice(dispatch, getState().cart.cart);
+        updateCartLocalStorage(getState().cart.cart);
     }
 }
 
@@ -92,17 +94,19 @@ export const getUserCart = (newProductsData) => {
         const savedCart = JSON.parse(localStorage.getItem('cart'));
 
         const newCart = [];
-        savedCart.forEach(savedItem => {
-            const savedItemNewData = newProductsData.find(itemData => itemData.id === savedItem.details.id);
-            if (savedItemNewData) {
-                newCart.push({ details: savedItemNewData, quantity: savedItem.quantity });
-            }
-        });
-        await dispatch(getUserCartDispatch(newCart));
-        updateItemsAndPrice(dispatch, getState().cart);
+        if (savedCart) {
+            savedCart.forEach(savedItem => {
+                const savedItemNewData = newProductsData.find(itemData => itemData.id === savedItem.details.id);
+                if (savedItemNewData) {
+                    newCart.push({ details: savedItemNewData, quantity: savedItem.quantity });
+                }
+            });
+
+            await dispatch(getUserCartDispatch(newCart));
+            updateItemsAndPrice(dispatch, getState().cart.cart);
+        }
+
     }
-
-
 
 }
 

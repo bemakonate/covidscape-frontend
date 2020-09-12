@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/layout';
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../store/cart/actions';
 import { navigate } from 'gatsby';
 import Summary from '../components/layout/checkout/summary';
 import OrderDetails from '../components/layout/checkout/orderDetails';
@@ -10,6 +10,7 @@ import ContactForm from '../components/layout/checkout/contactForm';
 import { shouldPayShipping, getTaxes, SHIPPING_RATE, cartSubtotal } from '../constants/helpers/cart-helpers';
 import BackdropSpinner from '../components/reusable/backdropSpinner';
 import axios from 'axios';
+import AddressModal from '../components/layout/checkout/address-modal';
 
 const Checkout = (props) => {
     const { cartItems, onAddOrderData, onAddOrderCart } = props;
@@ -24,6 +25,8 @@ const Checkout = (props) => {
     const [orderData, setOrderData] = useState(null);
     const [isPaymentBeingProcessed, setIsPaymentBeingProcessed] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [userAddress, setUserAddress] = useState({ address: '', coordinates: [] });
+    const [showAddressModal, setShowAddressModal] = useState(false);
 
 
 
@@ -38,8 +41,6 @@ const Checkout = (props) => {
     // if (!cartItems.length) {
     //     navigate('/cart');
     // }
-
-
 
     useEffect(() => {
         if (isStripeLoaded && token && cartItems) {
@@ -66,6 +67,7 @@ const Checkout = (props) => {
         if (isPaymentSuccessful && orderData) {
             onAddOrderData(orderData)
             onAddOrderCart(cartItems)
+            props.onClearCart();
             navigate('/confirmation');
         }
     }, [isPaymentSuccessful])
@@ -76,8 +78,8 @@ const Checkout = (props) => {
     and the total based on the cart we passed) */
 
     useEffect(() => {
-        const loadToken = async () => {
-            const response = await axios.post('http://localhost:1337/orders/payment', { cart: serverCart });
+        const loadToken = async (cart) => {
+            const response = await axios.post('http://localhost:1337/orders/payment', { cart });
             const data = response.data;
 
             setToken(data.client_secret);
@@ -87,7 +89,7 @@ const Checkout = (props) => {
 
 
         if (cartItems.length > 0) {
-            loadToken();
+            loadToken(serverCart);
         }
 
     }, [cartItems])
@@ -110,6 +112,7 @@ const Checkout = (props) => {
 
         checkoutJSX = (
             <React.Fragment>
+
                 <div className="payment-info">
                     <section className="order-details-section checkout-section">
                         <h3>Order Details</h3>
@@ -124,7 +127,11 @@ const Checkout = (props) => {
                     <section className="contact-info-section checkout-section">
                         <h3>Contact Information</h3>
                         <div className="contact-form__wrapper">
-                            <ContactForm getFormData={updateBillingDetails} getIsFormValid={updateContactFormValidity} />
+                            <ContactForm
+                                getFormData={updateBillingDetails}
+                                getIsFormValid={updateContactFormValidity}
+                                addressInput={userAddress ? userAddress.address : null}
+                                openAddressModal={() => setShowAddressModal(true)} />
                         </div>
                     </section>
 
@@ -135,10 +142,11 @@ const Checkout = (props) => {
                         <h3>Payment Option</h3>
                         <OnlinePayment
                             serverTotal={serverTotal}
-                            getIsPaymentSuccessful={getIsPaymentSuccessful}
                             billingDetails={billingDetails}
                             serverCart={serverCart}
                             token={token}
+                            isContactFormValid={isContactFormValid}
+                            getIsPaymentSuccessful={getIsPaymentSuccessful}
                             getIsStripeLoaded={getIsStripeLoaded}
                             getOrderData={getOrderData}
                             getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
@@ -159,6 +167,13 @@ const Checkout = (props) => {
     return (
         <Layout addPadding>
             <BackdropSpinner show={loading} styleClass="loading-bg" contentClass="loading-content" spinnerColor="black"></BackdropSpinner>;
+
+            <AddressModal
+                show={showAddressModal}
+                getAddress={(address) => setUserAddress(address)}
+                coordinates={userAddress ? userAddress.coordinates : null}
+                close={() => setShowAddressModal(false)} />
+
             <div className="container">
                 <main className="checkout__wrapper">
                     {checkoutJSX}
@@ -171,8 +186,8 @@ const Checkout = (props) => {
 
 const mapStateToProps = state => {
     return {
-        cartItems: state.cart,
-        totalPrice: state.totalPrice
+        cartItems: state.cart.cart,
+        totalPrice: state.cart.totalPrice
     }
 }
 

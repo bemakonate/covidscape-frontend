@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './styledProductCard.module.scss';
 import ProductCard from '../productCard/productCard';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions';
+import * as actions from '../../../store/cart/actions';
 
 
 const StyledProductCard = (props) => {

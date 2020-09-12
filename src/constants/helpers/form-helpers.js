@@ -1,13 +1,45 @@
 import React from 'react';
 
 export const createInput = ({ value, inputId, change, className, elmtConfig, type }) => {
-    return <input
-        {...elmtConfig}
-        className={className}
-        value={value}
-        type={type}
-        onChange={event => change({ inputId, event })} />
+    let inputJSX = null;
+    switch (type) {
+        case ('textarea'):
+            inputJSX = (
+                <textarea
+                    {...elmtConfig}
+                    className={className}
+                    onChange={event => change({ inputId, event })}
+                    value={value}>
+
+                </textarea>
+            )
+            break;
+        default:
+            inputJSX = <input
+                {...elmtConfig}
+                className={className}
+                value={value}
+                onChange={event => change({ inputId, event })} />
+    }
+    return inputJSX;
 };
+
+export const removeFields = (formConfig, removeFields) => {
+    const newFormConfig = [];
+    formConfig.forEach(field => {
+        let passField = true;
+        removeFields.forEach(removeField => {
+            if (field.id === removeField) {
+                passField = false;
+            }
+        })
+        if (passField) {
+            newFormConfig.push(field);
+        }
+    })
+
+    return newFormConfig;
+}
 
 //Add needed properites for each input elment
 export const createFormConfig = (defaultConfig) => {

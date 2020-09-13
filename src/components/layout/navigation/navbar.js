@@ -8,7 +8,7 @@ import { GrSearch } from 'react-icons/gr';
 import { RiSurgicalMaskLine } from 'react-icons/ri';
 
 const navigation = (props) => {
-    const currentPath = window.location.pathname;
+    const currentPath = typeof window !== 'undefined' && window.location.pathname;
     const ifToOpenCartSidebar = (currentPath !== '/cart') || (currentPath !== '/checkout') ? props.openCartSidebar : null;
 
     return (

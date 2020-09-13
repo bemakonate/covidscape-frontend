@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Backdrop from '../../basic/Backdrop/Backdrop';
-import Mapbox from './mapbox';
+import loadable from '@loadable/component'
+
+const Mapbox = loadable(() => import('./mapbox'));
 
 const AddressModal = (props) => {
     const [userAddress, setUserAddress] = useState(null);

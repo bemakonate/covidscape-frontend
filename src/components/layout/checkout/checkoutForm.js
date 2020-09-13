@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements, PaymentRequestButtonElement } from '@stripe/react-stripe-js';
-import axios from 'axios';
+import axios from '../../../constants/axios-backend';
 import Dollar from '../../reusable/dollar';
 import { connect } from 'react-redux';
 import * as layoutActions from '../../../store/layout/actions';
@@ -107,12 +107,17 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
         }
 
         //Create a new order collection
-        const res = await axios.post('http://localhost:1337/orders', data);
+        try {
+            const res = await axios.post('/orders', data);
+            setOrderData(res.data);
+            setPaymentBeingProcessed(false);
+            props.closeFlashMessage();
+            setSuccess(true);
+        } catch (err) {
+            props.openFlashMessage({ message: 'There was a problem with the server, sorry' })
+            setPaymentBeingProcessed(false);
+        }
 
-        setOrderData(res.data);
-        setPaymentBeingProcessed(false);
-        props.closeFlashMessage();
-        setSuccess(true);
     }
 
 
@@ -125,7 +130,7 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
             {!props.isContactFormValid ? <span className="purchase-warning">Complete Form to purchase</span> : null}
             <button
                 className="buy-btn"
-                disabled={(!stripe) || (!props.isContactFormValid)}
+                // disabled={(!stripe) || (!props.isContactFormValid)}
                 onClick={chargeUserHandler}>Pay <Dollar cents={props.serverTotal} /></button>
         </form>
     );

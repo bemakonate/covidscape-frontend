@@ -9,7 +9,7 @@ import OnlinePayment from '../components/layout/checkout/online-payment';
 import ContactForm from '../components/layout/checkout/contactForm';
 import { shouldPayShipping, getTaxes, SHIPPING_RATE, cartSubtotal } from '../constants/helpers/cart-helpers';
 import BackdropSpinner from '../components/reusable/backdropSpinner';
-import axios from 'axios';
+import axios from '../constants/axios-backend';
 import AddressModal from '../components/layout/checkout/address-modal';
 
 const Checkout = (props) => {
@@ -79,7 +79,7 @@ const Checkout = (props) => {
 
     useEffect(() => {
         const loadToken = async (cart) => {
-            const response = await axios.post('http://localhost:1337/orders/payment', { cart });
+            const response = await axios.post('/orders/payment', { cart });
             const data = response.data;
 
             setToken(data.client_secret);

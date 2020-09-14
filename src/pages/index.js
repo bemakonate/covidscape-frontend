@@ -117,7 +117,7 @@ const Index = ({ data }) => {
                 link={`/categories/${category.slug}`}
                 title={category.name}
                 items={itemsSet.size}
-                image={category.image.childImageSharp.fluid} />
+                image={category.image} />
             })}
           </div>
         </div>
@@ -138,7 +138,7 @@ const Index = ({ data }) => {
                 title={product.title}
                 price={product.price}
                 product={product}
-                image={product.image.childImageSharp.fluid} />
+                image={product.image} />
             })}
           </div>
         </div>

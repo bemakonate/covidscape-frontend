@@ -38,9 +38,9 @@ const Checkout = (props) => {
     const getIsPaymentBeingProcessed = (boolean) => setIsPaymentBeingProcessed(boolean);
 
 
-    // if (!cartItems.length) {
-    //     navigate('/cart');
-    // }
+    if (!cartItems.length) {
+        navigate('/cart');
+    }
 
     useEffect(() => {
         if (isStripeLoaded && token && cartItems) {

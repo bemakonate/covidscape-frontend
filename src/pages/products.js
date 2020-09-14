@@ -69,7 +69,7 @@ const AllProducts = ({ data }) => {
                         link={`/products/${product.slug}`}
                         title={product.title}
                         price={product.price}
-                        image={product.image.childImageSharp.fluid}
+                        image={product.image}
                         product={product} />
                 )}
             </div>

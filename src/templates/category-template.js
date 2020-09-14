@@ -57,7 +57,7 @@ const AllProducts = ({ data }) => {
                         title={product.title}
                         price={product.price}
                         link={`/products/${product.slug}`}
-                        image={product.image.childImageSharp.fluid} />
+                        image={product.image} />
                 )}
             </div>
         )

@@ -39,7 +39,7 @@ const Categories = ({ data }) => {
             link={`/categories/${category.slug}`}
             title={category.name}
             items={itemsSet.size}
-            image={category.image.childImageSharp.fluid} />
+            image={category.image} />
         })}
       </div>
     )

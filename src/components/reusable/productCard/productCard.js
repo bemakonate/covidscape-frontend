@@ -55,7 +55,7 @@ const productCard = ({ image, type = 'product', ...props }) => {
         <div className={productClasses} >
             <AspectRatio height="133%" styleClass={props.imgContainerStyle}>
                 <Link to={props.link}>
-                    <GatsbyImage fluid={image} className={imgClasses}></GatsbyImage>
+                    <GatsbyImage fluid={image.childImageSharp.fluid} className={imgClasses}></GatsbyImage>
                     <div className={`${classes.ProductOverlay} ${props.overlayStyle ? props.overlayStyle : null}`}></div>
                 </Link>
                 {productBtns}

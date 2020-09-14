@@ -7,7 +7,7 @@ import * as actions from '../store/cart/actions';
 import Dollar from '../components/reusable/dollar';
 import Spinner from '../components/reusable/spinner';
 import { cartSubtotal } from '../constants/helpers/cart-helpers';
-import BackdropSpinner from '../components/reusable/backdropSpinner';
+import BackdropSpinner from '../components/reusable/loadingBackdrop';
 import SEO from '../components/reusable/SEO';
 
 const Cart = (props) => {

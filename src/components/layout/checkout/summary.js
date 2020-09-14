@@ -4,7 +4,7 @@ import Dollar from '../../reusable/dollar';
 
 
 
-const Summary = ({ total, shipping, taxes, subtotal, shouldPayShipping, styleClass }) => {
+const Summary = ({ serverSummary, styleClass }) => {
 
     return (
         <article className={`summary ${styleClass ? styleClass : ''}`}>
@@ -13,25 +13,25 @@ const Summary = ({ total, shipping, taxes, subtotal, shouldPayShipping, styleCla
                 <div className="checkout-subtotal-container">
                     <div className="summary-row">
                         <p className="summary-row-label">Subtotal</p>
-                        <p className="summary-row-detail"><Dollar num={subtotal} /></p>
+                        <p className="summary-row-detail"><Dollar num={serverSummary.subtotal} /></p>
                     </div>
                     <div className="summary-row">
                         <p className="summary-row-label">Shipping</p>
                         <p className="summary-row-detail">
-                            {shouldPayShipping ? <Dollar num={shipping} /> : "Free"}
+                            {serverSummary.shouldPayShipping ? <Dollar num={serverSummary.shipping} /> : "Free"}
                         </p>
                     </div>
 
                     <div className="summary-row">
                         <p className="summary-row-label">Estimated Tax</p>
-                        <p className="summary-row-detail"><Dollar num={taxes} /></p>
+                        <p className="summary-row-detail"><Dollar num={serverSummary.taxes} /></p>
                     </div>
                     <div className="line"></div>
 
                     <div className="summary-total">
                         <p className="summary-total-label">Total</p>
                         <p className="summary-total-price">
-                            <Dollar cents={total} />
+                            <Dollar num={serverSummary.total} />
                         </p>
                     </div>
                 </div>

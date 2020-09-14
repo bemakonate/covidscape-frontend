@@ -6,6 +6,7 @@ import BackgroundImage from 'gatsby-background-image';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { BsArrowLeft } from 'react-icons/bs';
 import { CgMore } from 'react-icons/cg';
+import SEO from '../components/reusable/SEO';
 
 
 export const query = graphql`
@@ -79,6 +80,7 @@ const AllProducts = ({ data }) => {
 
     return (
         <Layout>
+            <SEO title="Shop" />
             <header className={`header-height ${categoriesDropdown ? 'categories-dropdown' : null}`}>
                 <BackgroundImage
                     Tag="div"
@@ -90,7 +92,9 @@ const AllProducts = ({ data }) => {
                             <div className="jumbo__sub-content">
 
                                 <Link to="/" className="jumbo__back-arrow shop-arrow"><BsArrowLeft /></Link>
-                                <p className="shop__breadcrumb-list">Home / Categories / Shop</p>
+                                <p className="shop__breadcrumb-list">
+                                    <Link to="/">Home</Link> / <Link to="/categories">Categories</Link> / Shop
+                                </p>
                                 <h1 className="shop__jumbotron-title">Shop</h1>
                                 <button onClick={toggleCategoriesDropdown} className="shop__jumbotron-categories-btn">
                                     <span className="shop__jumbotron-categories-btn__text">Categories</span>

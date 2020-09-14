@@ -7,6 +7,7 @@ import GatsbyImage from 'gatsby-image';
 import AspectRatio from '../components/basic/aspectRatio/aspectRatio';
 import { FiCheckCircle } from 'react-icons/fi';
 import ItemQuantity from '../components/reusable/itemQuantity';
+import SEO from '../components/reusable/SEO';
 
 export const query = graphql`
 query GetProduct($slug: String){
@@ -60,6 +61,7 @@ const Product = ({ data: { product }, ...props }) => {
 
     return (
         <Layout>
+            <SEO title={title} />
             <main className="product-page">
                 <div className="product-page-container">
                     <div className="product-info">

@@ -5,6 +5,7 @@ import '../../../styles/5-state/_5-state.scss';
 const Backdrop = (props) => {
     let backdropClasses = [classes.Backdrop, props.styles, "js-hide"];
     let backdropContentClasses = [classes.BackdropContent, props.contentClass, "js-hide"];
+    let backdropContentJSX = null;
 
     useEffect(() => {
         const body = document.querySelector('body');
@@ -20,14 +21,18 @@ const Backdrop = (props) => {
     if (props.show) {
         backdropClasses.pop("js-hide");
         backdropContentClasses.pop("js-hide");
+        backdropContentJSX = (
+            <div className={backdropContentClasses.join(' ')}>
+                {props.children}
+            </div>
+        )
+
     }
 
     return (
         <React.Fragment>
             <div onClick={props.click} className={backdropClasses.join(' ')}> </div>
-            <div className={backdropContentClasses.join(' ')}>
-                {props.children}
-            </div>
+            {backdropContentJSX}
         </React.Fragment>
 
 

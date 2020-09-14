@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Backdrop from '../../basic/Backdrop/Backdrop';
 import loadable from '@loadable/component'
-
-const Mapbox = loadable(() => import('./mapbox'));
+const Geocoding = loadable(() => import('../../basic/Geocoding/Gecoding'));
 
 const AddressModal = (props) => {
     const [userAddress, setUserAddress] = useState(null);
-    // useEffect(() => {
-    //     if (props.getAddress) {
-    //         props.getAddress(userAddress);
-    //     }
-    // }, [userAddress])
 
     const saveAddress = () => {
         if (props.getAddress) {
@@ -23,7 +17,7 @@ const AddressModal = (props) => {
             <div className="container">
                 <div className="address-modal-container">
                     <div className="mapbox-container">
-                        <Mapbox
+                        <Geocoding
                             getAddress={(address, coordinates) => setUserAddress({ address, coordinates })} />
                     </div>
 

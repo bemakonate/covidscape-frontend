@@ -1,41 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/layout';
+import axios from '../constants/axios-backend';
 import { connect } from 'react-redux';
 import * as actions from '../store/cart/actions';
 import { navigate } from 'gatsby';
+import PaymentContext from '../context/payment-context';
+
+import SEO from '../components/reusable/SEO';
 import Summary from '../components/layout/checkout/summary';
 import OrderDetails from '../components/layout/checkout/orderDetails';
 import OnlinePayment from '../components/layout/checkout/online-payment';
 import ContactForm from '../components/layout/checkout/contactForm';
-import { shouldPayShipping, getTaxes, SHIPPING_RATE, cartSubtotal } from '../constants/helpers/cart-helpers';
-import BackdropSpinner from '../components/reusable/backdropSpinner';
-import axios from '../constants/axios-backend';
+import LoadingBackdrop from '../components/reusable/loadingBackdrop';
 import AddressModal from '../components/layout/checkout/address-modal';
+
 
 const Checkout = (props) => {
     const { cartItems, onAddOrderData, onAddOrderCart } = props;
     let checkoutJSX = null;
 
-    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(null);
-    const [billingDetails, setBillingDetails] = useState(null);
-    const [serverTotal, setServerTotal] = useState(null);
+    //Component stages and position state
+    const [loading, setLoading] = useState(true);
+    const [isPaymentBeingProcessed, setIsPaymentBeingProcessed] = useState(false);
     const [isContactFormValid, setIsContactFormValid] = useState(false);
     const [isStripeLoaded, setIsStripeLoaded] = useState(null);
+    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(null);
+    const [showAddressModal, setShowAddressModal] = useState(false);
+
+    //Component data state
+    const [billingDetails, setBillingDetails] = useState(null);
+    const [serverSummary, setServerSummary] = useState(null);
     const [token, setToken] = useState(null);
     const [orderData, setOrderData] = useState(null);
-    const [isPaymentBeingProcessed, setIsPaymentBeingProcessed] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [userAddress, setUserAddress] = useState({ address: '', coordinates: [] });
-    const [showAddressModal, setShowAddressModal] = useState(false);
+
+
 
 
 
     const getIsPaymentSuccessful = (boolean) => setIsPaymentSuccessful(boolean);
-    const updateBillingDetails = (formData) => setBillingDetails(formData);
     const updateContactFormValidity = (boolean) => setIsContactFormValid(boolean);
     const getIsStripeLoaded = (boolean) => setIsStripeLoaded(boolean);
-    const getOrderData = (data) => setOrderData(data);
     const getIsPaymentBeingProcessed = (boolean) => setIsPaymentBeingProcessed(boolean);
+    const updateBillingDetails = (formData) => setBillingDetails(formData);
+    const getOrderData = (data) => setOrderData(data);
 
 
     if (!cartItems.length) {
@@ -82,8 +90,8 @@ const Checkout = (props) => {
             const response = await axios.post('/orders/payment', { cart });
             const data = response.data;
 
-            setToken(data.client_secret);
-            setServerTotal(data.amount);
+            setToken(data.paymentIntent.client_secret);
+            setServerSummary(data.summary);
             setLoading(false);
         }
 
@@ -99,16 +107,8 @@ const Checkout = (props) => {
 
 
 
-    if (cartItems && serverTotal) {
-        const checkoutSummary = (
-            <Summary
-                total={serverTotal}
-                taxes={getTaxes(cartItems)}
-                shipping={SHIPPING_RATE}
-                subtotal={cartSubtotal(cartItems)}
-                shouldPayShipping={shouldPayShipping(cartItems)} />
-        )
-
+    if (cartItems && serverSummary) {
+        const checkoutSummary = <Summary serverSummary={serverSummary} />;
 
         checkoutJSX = (
             <React.Fragment>
@@ -121,7 +121,7 @@ const Checkout = (props) => {
 
 
                     <section className="checkout__summary checkout__summary--mb">
-                        {checkoutSummary}
+                        <Summary serverSummary={serverSummary} />
                     </section>
 
                     <section className="contact-info-section checkout-section">
@@ -140,16 +140,22 @@ const Checkout = (props) => {
 
                     <section className="payment-option-section checkout-section">
                         <h3>Payment Option</h3>
-                        <OnlinePayment
-                            serverTotal={serverTotal}
-                            billingDetails={billingDetails}
-                            serverCart={serverCart}
-                            token={token}
-                            isContactFormValid={isContactFormValid}
-                            getIsPaymentSuccessful={getIsPaymentSuccessful}
-                            getIsStripeLoaded={getIsStripeLoaded}
-                            getOrderData={getOrderData}
-                            getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
+
+                        <PaymentContext.Provider value={{
+                            serverSummary,
+                            billingDetails,
+                            serverCart,
+                            token,
+                            isContactFormValid,
+                            getIsPaymentSuccessful,
+                            getIsStripeLoaded,
+                            getIsPaymentBeingProcessed,
+                            getOrderData,
+                        }}>
+                            <OnlinePayment />
+
+                        </PaymentContext.Provider>
+
                     </section>
                 </div>
 
@@ -166,8 +172,8 @@ const Checkout = (props) => {
 
     return (
         <Layout addPadding>
-            <BackdropSpinner show={loading} styleClass="loading-bg" contentClass="loading-content" spinnerColor="black"></BackdropSpinner>;
-
+            <SEO title="Checkout" />
+            <LoadingBackdrop show={loading} />
             <AddressModal
                 show={showAddressModal}
                 getAddress={(address) => setUserAddress(address)}

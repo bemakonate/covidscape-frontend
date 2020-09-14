@@ -1,0 +1,37 @@
+@import '../../../styles/defaultImports.scss';
+
+.Container {
+    position: relative;
+    @include square(100%);
+}
+
+.NavigationControl {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.Geocoder {
+    position: absolute;
+    background: black;
+    top: 20px;
+    left: 10px;
+}
+
+.Geocoder .mapboxgl-ctrl-geocoder {
+    width: 33.33%;
+    max-width: none;
+}
+
+.Geolocation {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+}
+
+
+@include mq('med') {
+    .Geocoder .mapboxgl-ctrl-geocoder {
+        width: 50%;
+    }
+}

@@ -1,0 +1,11 @@
+@import '../../../styles/defaultImports.scss';
+
+//spinner
+.LoadingBg {
+    background: rgba(white, .5);
+}
+
+.LoadingContent {
+    @include flex($center: true);
+    padding-bottom: 30vh;
+}

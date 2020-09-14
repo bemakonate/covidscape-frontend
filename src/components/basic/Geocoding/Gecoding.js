@@ -1,9 +1,9 @@
 import React from 'react'
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import "../../../styles/main.scss";
 import MapGL, { NavigationControl, GeolocateControl } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
+import classes from './Geocoding.module.scss';
 
 const MAPBOX_TOKEN =
     "pk.eyJ1IjoiYmVtYWtvbmF0ZSIsImEiOiJja2V4MmZuMmcwMDBrMnhxeWNpM3k5aDdxIn0.QyKjIu8wOjPuhc8vf_CzmQ";
@@ -64,8 +64,8 @@ class App extends React.Component {
         const { viewport } = this.state;
 
         return (
-            <div className="Container">
-                <div className="Geocoder">
+            <div className={classes.Container}>
+                <div className={classes.Geocoder}>
                     <div ref={this.geocoderContainerRef} />
                 </div>
                 <MapGL
@@ -87,11 +87,11 @@ class App extends React.Component {
                         collapsed={true} />
 
 
-                    <div className="NavigationControl">
+                    <div className={classes.NavigationControl}>
                         <NavigationControl />
                     </div>
 
-                    <div className="Geolocation">
+                    <div className={classes.Geolocation}>
                         <GeolocateControl ref={this.geolocationRef} />
                     </div>
 

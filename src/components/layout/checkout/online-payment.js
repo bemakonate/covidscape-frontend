@@ -7,21 +7,12 @@ import CheckoutForm from './checkoutForm';
 
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
 
-const OnlinePayment = ({ getIsPaymentSuccessful, billingDetails, getIsStripeLoaded, serverCart, token, serverTotal, getOrderData, getIsPaymentBeingProcessed, isContactFormValid }) => {
+const OnlinePayment = () => {
     const [payOption, setPayOption] = useState('card');
     const payChangeHandler = (value) => setPayOption(value);
 
     const cardPaymentJSX = (
-        <CheckoutForm
-            serverTotal={serverTotal}
-            getIsPaymentSuccessful={getIsPaymentSuccessful}
-            token={token}
-            serverCart={serverCart}
-            billingDetails={billingDetails}
-            getIsStripeLoaded={getIsStripeLoaded}
-            getOrderData={getOrderData}
-            isContactFormValid={isContactFormValid}
-            getIsPaymentBeingProcessed={getIsPaymentBeingProcessed} />
+        <CheckoutForm />
     )
 
     return (

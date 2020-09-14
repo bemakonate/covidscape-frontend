@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CardElement, useStripe, useElements, PaymentRequestButtonElement } from '@stripe/react-stripe-js';
 import axios from '../../../constants/axios-backend';
 import Dollar from '../../reusable/dollar';
 import { connect } from 'react-redux';
 import * as layoutActions from '../../../store/layout/actions';
+import PaymentContext from '../../../context/payment-context';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -24,7 +25,7 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 
-const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
+const CheckoutForm = ({ ...props }) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -33,6 +34,8 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
     const [orderData, setOrderData] = useState(null);
     const [paymentBeingProcessed, setPaymentBeingProcessed] = useState(false);
 
+    const paymentContext = useContext(PaymentContext);
+    const { billingDetails, serverCart, token, serverSummary, isContactFormValid } = paymentContext;
 
 
     //Check to see if stripe data has been loaded into the component
@@ -41,27 +44,27 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
 
     //==========UPDATE CHECKOUTPAGE PROPS==============
     useEffect(() => {
-        if (props.getIsStripeLoaded) {
-            props.getIsStripeLoaded(isStripeLoaded)
+        if (paymentContext.getIsStripeLoaded) {
+            paymentContext.getIsStripeLoaded(isStripeLoaded)
         }
     }, [isStripeLoaded])
 
 
     useEffect(() => {
-        if (props.getIsPaymentSuccessful) {
-            props.getIsPaymentSuccessful(success);
+        if (paymentContext.getIsPaymentSuccessful) {
+            paymentContext.getIsPaymentSuccessful(success);
         }
     }, [success])
 
     useEffect(() => {
-        if (props.getOrderData) {
-            props.getOrderData(orderData);
+        if (paymentContext.getOrderData) {
+            paymentContext.getOrderData(orderData);
         }
     }, [orderData])
 
     useEffect(() => {
-        if (props.getIsPaymentBeingProcessed) {
-            props.getIsPaymentBeingProcessed(paymentBeingProcessed)
+        if (paymentContext.getIsPaymentBeingProcessed) {
+            paymentContext.getIsPaymentBeingProcessed(paymentBeingProcessed)
         }
     }, [paymentBeingProcessed])
 
@@ -127,11 +130,11 @@ const CheckoutForm = ({ billingDetails, serverCart, token, ...props }) => {
             <div className="card-element">
                 <CardElement options={CARD_ELEMENT_OPTIONS} />
             </div>
-            {!props.isContactFormValid ? <span className="purchase-warning">Complete Form to purchase</span> : null}
+            {!isContactFormValid ? <span className="purchase-warning">Complete Form to purchase</span> : null}
             <button
                 className="buy-btn"
-                // disabled={(!stripe) || (!props.isContactFormValid)}
-                onClick={chargeUserHandler}>Pay <Dollar cents={props.serverTotal} /></button>
+                disabled={(!stripe) || (!isContactFormValid)}
+                onClick={chargeUserHandler}>Pay <Dollar num={serverSummary.total} /></button>
         </form>
     );
 

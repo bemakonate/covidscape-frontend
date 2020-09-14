@@ -2,7 +2,9 @@ import React from 'react'
 import GatsbyImage from 'gatsby-image';
 import AspectRatio from '../../basic/aspectRatio/aspectRatio';
 import classes from './productCard.module.scss';
+import { truncate } from '../../../constants/helpers';
 import { RiShoppingCart2Line } from 'react-icons/ri';
+import Dollar from '../dollar'
 import { FiInfo } from 'react-icons/fi';
 import { BsHeart } from 'react-icons/bs';
 import { Link } from 'gatsby';
@@ -41,8 +43,8 @@ const productCard = ({ image, type = 'product', ...props }) => {
             )
             const productInfo = (
                 <div className={`${classes.ProductDetails} ${classes.CardDetails}`}>
-                    <p className={classes.ProductTitle}>{props.title || 'Product'}</p>
-                    <h3 className={classes.ProductPrice}>{props.price ? `$${props.price}` : 'Price May Vary'}</h3>
+                    <p className={classes.ProductTitle}>{truncate(props.title, 20) || 'Product'}</p>
+                    <h3 className={classes.ProductPrice}>{props.price ? <Dollar num={props.price} /> : 'Price May Vary'}</h3>
                 </div>
             );
             cardInfo = productInfo;

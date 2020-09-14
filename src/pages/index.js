@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../components/layout/layout';
 import GatsbyImage from 'gatsby-image';
-
+import SEO from '../components/reusable/SEO';
 import BackgroundImage from 'gatsby-background-image';
 import { graphql, useStaticQuery, Link } from "gatsby";
 import StyledProductCard from '../components/reusable/styledProductCard';
@@ -176,6 +176,7 @@ const Index = ({ data }) => {
 
   return (
     <Layout>
+      <SEO title="Home" />
       <div className="home">
         <Hero />
         <main>

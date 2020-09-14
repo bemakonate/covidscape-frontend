@@ -32,7 +32,8 @@ const formConfig = [
         id: 'address',
         label: 'Address',
         type: 'textarea',
-        elmtConfig: { placeholder: 'click address button', readOnly: true }
+        elmtConfig: { placeholder: 'click address button', readOnly: true },
+        rules: { required: true }
     }
 ]
 

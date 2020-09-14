@@ -1,9 +1,10 @@
 import React from 'react'
 import Layout from '../components/layout/layout';
 import { connect } from 'react-redux';
-import * as actions from '../store/cart/actions';
+import { Link } from 'gatsby';
 import CartItem from '../components/reusable/cartItem';
 import Dollar from '../components/reusable/dollar';
+import SEO from '../components/reusable/SEO';
 
 const Confirmation = (props) => {
     const { orderData, orderCart } = props;
@@ -19,7 +20,7 @@ const Confirmation = (props) => {
                         <h2 className="page-header__title">Thank you!</h2>
                         <p className="page-header__details">Your order has been processed. Check email for confirmation of your order</p>
 
-                        <button className="back-home-btn">Continue Shopping</button>
+                        <Link to="/" className="back-home-btn">Continue Shopping</Link>
                     </header>
 
 
@@ -112,6 +113,7 @@ const Confirmation = (props) => {
 
     return (
         <Layout addPadding>
+            <SEO title="Confirmation" />
             <div className="confirmation-page">
                 {pageJSX}
             </div>
@@ -121,8 +123,6 @@ const Confirmation = (props) => {
 
 const mapStateToProps = state => {
     return {
-        // cartItems: state.cart.cart,
-        // totalPrice: state.cart.totalPrice,
         orderData: state.cart.orderData,
         orderCart: state.cart.orderCart,
     }

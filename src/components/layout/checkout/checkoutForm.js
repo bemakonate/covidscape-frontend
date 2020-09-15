@@ -107,6 +107,7 @@ const CheckoutForm = ({ ...props }) => {
             paymentIntent: result.paymentIntent,
             ...customerBillingDetails,
             cart: serverCart,
+            currentDate: new Date(),
         }
 
         //Create a new order collection

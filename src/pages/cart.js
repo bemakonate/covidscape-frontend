@@ -5,9 +5,7 @@ import { Link } from 'gatsby';
 import { connect } from 'react-redux';
 import * as actions from '../store/cart/actions';
 import Dollar from '../components/reusable/dollar';
-import Spinner from '../components/reusable/spinner';
 import { cartSubtotal } from '../constants/helpers/cart-helpers';
-import BackdropSpinner from '../components/reusable/loadingBackdrop';
 import SEO from '../components/reusable/SEO';
 
 const Cart = (props) => {
@@ -67,8 +65,6 @@ const Cart = (props) => {
             </div>
         </Layout>
     )
-
-    // return <BackdropSpinner show styleClass="loading-bg" spinnerColor="black"></BackdropSpinner>
 }
 
 const mapStateToProps = state => {

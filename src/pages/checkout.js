@@ -45,10 +45,12 @@ const Checkout = (props) => {
     const updateBillingDetails = (formData) => setBillingDetails(formData);
     const getOrderData = (data) => setOrderData(data);
 
+    useEffect(() => {
+        if (!cartItems.length) {
+            navigate('/cart');
+        }
 
-    if (!cartItems.length) {
-        navigate('/cart');
-    }
+    }, [])
 
     useEffect(() => {
         if (isStripeLoaded && token && cartItems) {

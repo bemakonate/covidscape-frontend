@@ -134,7 +134,7 @@ const CheckoutForm = ({ ...props }) => {
             {!isContactFormValid ? <span className="purchase-warning">Complete Form to purchase</span> : null}
             <button
                 className="buy-btn"
-                disabled={(!stripe) || (!isContactFormValid)}
+                // disabled={(!stripe) || (!isContactFormValid)}
                 onClick={chargeUserHandler}>Pay <Dollar num={serverSummary.total} /></button>
         </form>
     );

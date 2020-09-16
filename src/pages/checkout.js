@@ -108,7 +108,6 @@ const Checkout = (props) => {
 
 
 
-
     if (cartItems && serverSummary) {
         const checkoutSummary = <Summary serverSummary={serverSummary} />;
 

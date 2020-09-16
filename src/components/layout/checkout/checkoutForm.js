@@ -77,9 +77,7 @@ const CheckoutForm = ({ ...props }) => {
         let result;
         try {
             result = await stripe.confirmCardPayment(token, {
-                payment_method: {
-                    card: elements.getElement(CardElement)
-                }
+                payment_method: { card: elements.getElement(CardElement) }
             })
 
             //If the card payment had a problem throw the error

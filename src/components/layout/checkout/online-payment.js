@@ -3,6 +3,7 @@ import { FaCreditCard, FaApple } from 'react-icons/fa';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './checkoutForm';
+import ApplePay from './applepay';
 
 
 const stripePromise = loadStripe("pk_test_m1hvQaQOYv4JZTDoURWSNrqI00IEEiULrF");
@@ -11,9 +12,8 @@ const OnlinePayment = () => {
     const [payOption, setPayOption] = useState('card');
     const payChangeHandler = (value) => setPayOption(value);
 
-    const cardPaymentJSX = (
-        <CheckoutForm />
-    )
+    const cardPaymentJSX = <CheckoutForm />
+
 
     return (
         <article className="payment-option-wrapper">
@@ -44,6 +44,7 @@ const OnlinePayment = () => {
             </div>
             <Elements stripe={stripePromise}>
                 {payOption === 'card' ? cardPaymentJSX : null}
+                {payOption === 'apple-pay' ? <ApplePay /> : null}
             </Elements>
 
         </article>

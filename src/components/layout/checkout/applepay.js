@@ -11,7 +11,7 @@ const ApplePay = ({ ...props }) => {
     const [isStripeLoaded, setIsStripeLoaded] = useState(null);
     const [orderData, setOrderData] = useState(null);
     const [paymentBeingProcessed, setPaymentBeingProcessed] = useState(false);
-    const { billingDetails, serverCart, token, serverSummary, isContactFormValid } = paymentContext;
+    const { token } = paymentContext;
 
     //=====================STRIPE DOCS===================
     const stripe = useStripe();

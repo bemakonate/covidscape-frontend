@@ -10,7 +10,7 @@ const ApplePay = ({ ...props }) => {
     const [isStripeLoaded, setIsStripeLoaded] = useState(null);
     const [orderData, setOrderData] = useState(null);
     const [paymentBeingProcessed, setPaymentBeingProcessed] = useState(false);
-    const { token } = paymentContext;
+    const { billingDetails, serverCart, token, serverSummary, isContactFormValid } = paymentContext;
 
     //=====================STRIPE DOCS===================
     const stripe = useStripe();
@@ -45,6 +45,7 @@ const ApplePay = ({ ...props }) => {
         if (paymentRequest) {
 
             paymentRequest.on('paymentmethod', async (ev) => {
+                setPaymentBeingProcessed(true);
                 // Confirm the PaymentIntent without handling potential next actions (yet).
                 const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
                     token,
@@ -53,11 +54,15 @@ const ApplePay = ({ ...props }) => {
                 );
 
 
-                props.openFlashMessage('[applepay.js] paymentIntent', JSON.stringify(paymentIntent));
+
                 if (confirmError) {
                     // Report to the browser that the payment failed, prompting it to
                     // re-show the payment interface, or show an error message and close
                     // the payment interface.
+                    console.log('[applpay.js] confirmError', confirmError);
+
+                    setPaymentBeingProcessed(false);
+                    props.openFlashMessage({ message: 'There was an apple pay error' })
                     ev.complete('fail');
                 } else {
                     // Report to the browser that the confirmation was successful, prompting
@@ -70,12 +75,20 @@ const ApplePay = ({ ...props }) => {
                         // Let Stripe.js handle the rest of the payment flow.
                         const { error } = await stripe.confirmCardPayment(token);
                         if (error) {
+                            setPaymentBeingProcessed(false);
+                            console.log('[applepay.js] error', error);
+                            props.openFlashMessage({ message: 'Need a new payment method' })
+
                             // The payment failed -- ask your customer for a new payment method.
                         } else {
                             // The payment has succeeded.
+                            setPaymentBeingProcessed(false);
+                            props.openFlashMessage("Payment passed")
                         }
                     } else {
                         // The payment has succeeded.
+                        setPaymentBeingProcessed(false);
+                        props.openFlashMessage("Payment passed")
                     }
                 }
             });

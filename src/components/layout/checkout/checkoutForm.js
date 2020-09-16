@@ -145,6 +145,5 @@ const mapDispatchToProps = dispatch => {
         openFlashMessage: ({ message, props }) => dispatch(layoutActions.openFlashMessage({ message, props })),
         closeFlashMessage: () => dispatch(layoutActions.closeFlashMessage()),
     }
-
 }
 export default connect(null, mapDispatchToProps)(CheckoutForm);

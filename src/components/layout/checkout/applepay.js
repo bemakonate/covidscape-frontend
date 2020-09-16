@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { PaymentRequestButtonElement, useStripe } from '@stripe/react-stripe-js';
 import PaymentContext from './../../../context/apple-pay-context';
+import { connect } from 'react-redux';
 
 const ApplePay = () => {
 
@@ -48,7 +49,8 @@ const ApplePay = () => {
                 { handleActions: false }
             );
 
-            console.log('[applepay.js] paymentIntent', paymentIntent);
+
+            props.openFlashMessage('[applepay.js] paymentIntent', JSON.stringify(paymentIntent));
             if (confirmError) {
                 // Report to the browser that the payment failed, prompting it to
                 // re-show the payment interface, or show an error message and close
@@ -114,4 +116,10 @@ const ApplePay = () => {
     return <p>Can't use apple pay</p>
 }
 
-export default ApplePay
+const mapDispatchToProps = dispatch => {
+    return {
+        openFlashMessage: ({ message, props }) => dispatch(layoutActions.openFlashMessage({ message, props })),
+        closeFlashMessage: () => dispatch(layoutActions.closeFlashMessage()),
+    }
+}
+export default connect(null, mapDispatchToProps)(ApplePay)
